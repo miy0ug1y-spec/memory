@@ -1,19 +1,17 @@
 Rails.application.routes.draw do
   get "genres/index"
   get "genres/edit"
-  get "comments/new"
-  get "comments/index"
-  get "comments/edit"
-  get "comments/destroy"
-  get "users/edit"
-  get "users/show"
-  get "users/update"
+
   root to: "posts#index"
   get 'about' => "homes#about"
-  resources :registrations, only:[:new, :create], path: 'users',path_names: { new: 'sign_up' }
+  resources :registrations
   resource :session
   resources :passwords, param: :token
-  resources :posts, except: [:index]
+  resources :posts, except: [:index] do
+    resources :comments, only:[:index, :new,:create, :destroy]
+ 	end
+  resources :users,path: 'users',path_names: { new: 'sign_up' }
+		
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
