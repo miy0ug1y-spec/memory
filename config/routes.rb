@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "genres/index"
+  get "genres/edit"
   get "comments/new"
   get "comments/index"
   get "comments/edit"
