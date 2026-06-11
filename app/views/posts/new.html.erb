@@ -7,9 +7,9 @@
   <h4>本文</h4>
   <%= f.text_area :body %>
   <h4>公開設定</h4>
-  <%= f.radio_button :published, true, id: "post_published_true" %>
-  <%= f.label :published, "公開", for: "post_published_true" %>
-  <%= f.radio_button :published, false, id: "post_published_false" %>
-  <%= f.label :published, "非公開", for: "post_published_false" %><br>
+  <%= f.radio_button :is_publish, true, id: "post_is_publish_true" %>
+  <%= f.label :is_publish, "公開", for: "post_is_publish_true" %>
+  <%= f.radio_button :is_publish, false, id: "post_is_publish_false" %>
+  <%= f.label :is_publish, "非公開", for: "post_is_publish_false" %><br>
   <%= f.submit '投稿' %>
 <% end %>
