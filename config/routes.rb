@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :comments, only:[:index, :new,:create, :destroy]
  	end
   resources :users,path: 'users',path_names: { new: 'sign_up' }
-		
+	get 'mypage' => "users#mypage"	
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
