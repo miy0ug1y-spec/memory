@@ -5,8 +5,9 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
-  def mypost
-    
+  def mypage
+    @user = User.find(Current.user.id)
+    @user_image = @user.image 
   end
 
   def edit

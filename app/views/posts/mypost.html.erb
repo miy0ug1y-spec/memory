@@ -3,8 +3,6 @@
  
   <%= link_to post.title, post_path(post.id) %>
    
-  <%= post.body %>
-  
   <% if post.image.attached? %>
     <%= image_tag post.image, size: "200x200" %>
   <% else %>
