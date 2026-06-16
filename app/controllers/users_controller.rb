@@ -11,12 +11,21 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def show
+    @user = User.find(params[:id])
+    @user_image = @user.image 
   end
 
   def update
+    @user = Current.user
+    if @user.update(user_params)
+      redirect_to mypage_path(Current.user)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def create
@@ -34,6 +43,6 @@ class UsersController < ApplicationController
   private
  
   def user_params
-    params.require(:user).permit(:name, :handle_name, :email_address, :password, :password_confirmation)
+    params.require(:user).permit(:name, :handle_name, :email_address, :password, :password_confirmation, :image)
   end
 end

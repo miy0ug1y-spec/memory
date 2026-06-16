@@ -1,1 +1,8 @@
 <h4>マイページ</h4>
+ 
+
+<h3><%= @user.handle_name %></h3>
+<%= image_tag @user.get_profile_image(100,100) %>
+
+<%= link_to "ユーザー編集", edit_user_path(Current.user.id) %>
+

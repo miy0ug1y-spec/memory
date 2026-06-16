@@ -1,2 +1,8 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div>
+
+  <h3>
+  ハンドルネーム: <%= @user.handle_name %><br>
+  ユーザーイメージ: <br>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  </h3>
+</div>

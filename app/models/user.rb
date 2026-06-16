@@ -4,4 +4,11 @@ class User < ApplicationRecord
   has_many :posts
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   has_one_attached :image
+  def get_profile_image(width, height)
+    if image.attached?
+      image.variant(resize_to_fill: [width, height]).processed
+    else
+      "no_image_square.jpg"
+    end
+  end
 end
