@@ -7,11 +7,17 @@ class UsersController < ApplicationController
   
   def mypage
     @user = User.find(Current.user.id)
+    if @user != Current.user
+      redirect_to root_path
+    end
     @user_image = @user.image 
   end
 
   def edit
     @user = User.find(params[:id])
+    if @user != Current.user
+      redirect_to root_path
+    end
   end
 
   def show
@@ -20,9 +26,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = Current.user
+    @user = User.find(params[:id])
+    return redirect_to(root_path) unless @user == Current.user
     if @user.update(user_params)
-      redirect_to mypage_path(Current.user)
+      redirect_to mypage_path,notice: "ユーザー情報の編集が完了しました。"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,6 +45,11 @@ class UsersController < ApplicationController
   end
 
   def withdraw
+    @user = User.find(params[:id])
+    return redirect_to root_path unless @user == Current.user
+    @user.update!(is_active: true)
+    session.delete(:user_id)
+    redirect_to new_user_path, notice: "退会しました。"
   end
 
   private

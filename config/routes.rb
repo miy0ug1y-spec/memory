@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   resources :posts, except: [:index] do
     resources :comments, only:[:index, :new,:create, :destroy]
  	end
-  resources :users,path: 'users',path_names: { new: 'sign_up' }
+  resources :users, path: 'users',path_names: { new: 'sign_up' } do
+    member do
+      patch :withdraw
+    end
+  end
+
 	get 'mypost' => "posts#mypost"	
   get "mypage" =>"users#mypage"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

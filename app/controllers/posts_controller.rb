@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   allow_unauthenticated_access only: [:index]
   def index
-    @posts = Post.published
+    @posts = Post.published 
   end
 
   def show
@@ -23,7 +23,7 @@ class PostsController < ApplicationController
 
     if @post.save
       if @post.is_publish?
-        redirect_to root_path
+        redirect_to root_path, notice:"投稿が成功しました。"
       else
         redirect_to mypost_path
       end
@@ -39,13 +39,13 @@ class PostsController < ApplicationController
   def update
     post = Post.find(params[:id])
     post.update(post_params)
-    redirect_to post_path(post.id)  
+    redirect_to post_path(post.id), notice:"投稿の編集が成功しました。" 
   end
   
   def destroy
     post = Post.find(params[:id]) 
     post.destroy
-    redirect_to mypost_path
+    redirect_to mypost_path, notice:"削除しました。"
   end
 
 end

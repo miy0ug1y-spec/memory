@@ -11,4 +11,8 @@ class User < ApplicationRecord
       "no_image_square.jpg"
     end
   end
+  validates :name, presence: true
+  validates :handle_name, presence: true
+  validates :email_address, presence: true
+
 end
