@@ -13,19 +13,38 @@
 
 
 <!index>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <p>みんなの投稿一覧</p>
 
-<h1>みんなの投稿一覧</h1>
+      <% @posts.each do |post| %>
+      <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-2 text-center">
+                <%= image_tag post.user.get_profile_image(80,80),class: "rounded-circle" %>
+                <p class="mt-2">
+                  <%= link_to post.user.handle_name, user_path(post.user) %>
+                </p>
+              </div>
 
-<% @posts.each do |post| %>
+              <div class="col-md-10">
+                <h5>
+                  <%= link_to post.title, post_path(post) %>
+                </h5>
+                <p>
+                  <%= truncate(post.body, length: 200) %>
+                </p>
+                <% if post.image.attached? %>
+                  <%= image_tag post.image, size: "250x250", class: "img-fluid" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-  <%= link_to post.title, post_path(post.id) %>
-
-  <%= post.body %>
-
-  <% if post.image.attached? %>
-    <%= image_tag post.image, size: "200x200" %>
-  <% else %>
-    <%= image_tag 'letter.png', size: "200x200" %>
-  <% end %>
-  <%= post.user.handle_name %>
-<% end %>
+  </div>
+</div>

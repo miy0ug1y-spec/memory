@@ -1,12 +1,27 @@
-<h1>あなたの投稿一覧</h1>
-<% @posts.each do |post| %>
- 
-  <%= link_to post.title, post_path(post.id) %>
-   
-  <% if post.image.attached? %>
-    <%= image_tag post.image, size: "200x200" %>
-  <% else %>
-    <%= image_tag 'letter.png', size: "200x200" %>
-  <% end %>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+        <p>あなたの投稿一覧</p>
+        <% @posts.each do |post| %>
+         <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-10">
+                <h5>
+                  <%= link_to post.title, post_path(post) %>
+                </h5>
+                <p>
+                  <%= truncate(post.body, length: 200) %>
+                </p>
+                <% if post.image.attached? %>
+                  <%= image_tag post.image, size: "250x250", class: "img-fluid" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-<% end %>
+  </div>
+</div>
