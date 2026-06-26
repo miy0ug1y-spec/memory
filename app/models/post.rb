@@ -6,4 +6,8 @@ class Post < ApplicationRecord
   
   validates :title, presence: true
   validates :body, presence: true
+   def within_one_week?
+    created_at >= 1.week.ago
+   end
+
 end

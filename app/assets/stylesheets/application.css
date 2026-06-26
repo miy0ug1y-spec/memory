@@ -14,3 +14,7 @@
   box-sizing: border-box;
   color: #6c6b6b;
 }
+
+body {
+  background-image: asset-url("hoge.jpg");
+}
