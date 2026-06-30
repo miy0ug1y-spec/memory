@@ -39,7 +39,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_11_044637) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "comments", force: :cascade do |t|
+  create_table "comments", id: :integer, force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id"
     t.string "content"
@@ -49,13 +49,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_11_044637) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "genres", force: :cascade do |t|
+  create_table "genres",  id: :integer, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "posts",  id: :integer, force: :cascade do |t|
     t.string "title"
     t.string "body"
     t.datetime "created_at", null: false
@@ -67,7 +67,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_11_044637) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "sessions", force: :cascade do |t|
+  create_table "sessions", id: :integer, force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
     t.string "user_agent"
@@ -76,7 +76,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_11_044637) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :integer, force: :cascade do |t|
     t.string "email_address", null: false
     t.string "name", null: false
     t.string "handle_name", null: false
