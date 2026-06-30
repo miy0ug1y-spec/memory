@@ -7,6 +7,7 @@
 <% else %>
   <%= image_tag 'letter.png', size: "200x200" %>
 <% end %>
-<% if Current.user && @user == Current.user %>
-    <%= link_to "編集", edit_post_path(@post) %>
+<% if Current.user && Current.user == @post.user %>
+  <%= link_to "編集", edit_post_path(@post) %>
 <% end %>
+
