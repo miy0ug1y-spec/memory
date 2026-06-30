@@ -1,5 +1,5 @@
 class AddGenreIdToPosts < ActiveRecord::Migration[8.0]
   def change
-    add_column :posts, :genre_id, :integer
+    add_reference :posts, :genre, foreign_key: true
   end
 end
