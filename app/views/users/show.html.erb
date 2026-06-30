@@ -7,7 +7,9 @@
           ハンドルネーム: <%= @user.handle_name %><br>
           ユーザーイメージ: <br>
           <%= image_tag @user.get_profile_image(100,100),  class: "img-fluid rounded-circle" %>
-          <%= link_to "ユーザー編集", edit_user_path(Current.user.id) %>
+          <% if Current.user && @user == Current.user %>
+            <%= link_to "ユーザー編集", edit_user_path(@user) %>
+          <% end %>
         </div> 
       </div>
 

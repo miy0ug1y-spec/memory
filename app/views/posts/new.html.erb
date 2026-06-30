@@ -1,4 +1,13 @@
 <h1>投稿フォーム</h1>
+<% if @post.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= form_with model: @post do |f| %>
   <h4>画像</h4>
   <%= f.file_field :image, accept: "image/*" %>
@@ -6,10 +15,17 @@
   <%= f.text_field :title %>
   <h4>本文</h4>
   <%= f.text_area :body %>
-  <h4>公開設定</h4>
-  <%= f.radio_button :is_publish, true, id: "post_is_publish_true" %>
-  <%= f.label :is_publish, "公開", for: "post_is_publish_true" %>
-  <%= f.radio_button :is_publish, false, id: "post_is_publish_false" %>
-  <%= f.label :is_publish, "非公開", for: "post_is_publish_false" %><br>
-  <%= f.submit '投稿' %>
+ <div class="mb-3">
+ <p>公開設定</p>
+    <div class="form-check form-check-inline">
+      <%= f.radio_button :is_publish, true, class: "form-check-input", id: "post_is_publish_true" %>
+      <%= f.label :is_publish_true, "公開", class: "form-check-label", for: "post_is_publish_true" %>
+    </div>
+
+    <div class="form-check form-check-inline">
+      <%= f.radio_button :is_publish, false, class: "form-check-input", id: "post_is_publish_false" %>
+      <%= f.label :is_publish_false, "非公開", class: "form-check-label", for: "post_is_publish_false" %>
+    </div>
+  </div>
+  <%= f.submit '保存' %>
 <% end %>

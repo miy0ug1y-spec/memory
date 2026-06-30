@@ -23,7 +23,7 @@ class PostsController < ApplicationController
 
     if @post.save
       if @post.is_publish?
-        redirect_to root_path, notice:"投稿が成功しました。"
+        redirect_to mypage_path, notice:"投稿が成功しました。"
       else
         redirect_to mypost_path
       end
@@ -34,16 +34,24 @@ class PostsController < ApplicationController
   
   def edit
     @post = Post.find(params[:id])
+    return redirect_to root_path unless @post.user == Current.user
   end
   
   def update
-    post = Post.find(params[:id])
-    post.update(post_params)
-    redirect_to post_path(post.id), notice:"投稿の編集が成功しました。" 
+   @post = Post.find(params[:id])
+   return redirect_to root_path unless @post.user == Current.user 
+
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "投稿の編集が成功しました。"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
   
   def destroy
     post = Post.find(params[:id]) 
+    return redirect_to root_path unless post.user == Current.user
+
     post.destroy
     redirect_to mypost_path, notice:"削除しました。"
   end

@@ -48,8 +48,10 @@ class UsersController < ApplicationController
   def withdraw
     @user = User.find(params[:id])
     return redirect_to root_path unless @user == Current.user
-    @user.update!(is_active: true)
-    session.delete(:user_id)
+
+    @user.update!(is_active: false)
+
+    Current.session.destroy
     redirect_to new_user_path, notice: "退会しました。"
   end
 
