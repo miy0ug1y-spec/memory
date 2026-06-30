@@ -1,16 +1,14 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-3">
-     
-    <p>ユーザー情報</p>
-      <div class="card">
+    <div class="col-md-3 d-flex justify-content-end">
+      <div class="card w-100">
         <div class="card-body">
-          <p>@<%= Current.user.handle_name %></p>
-          <%= image_tag @user.get_profile_image(100,100) %><br>
-          <%= link_to "ユーザー編集", edit_user_path(Current.user.id) %>
-        </div>
+         <p>@<%= link_to Current.user.handle_name, user_path(Current.user) %></p>
+         <%= image_tag @user.get_profile_image(100,100), class: "img-fluid rounded-circle" %>
+       </div>
       </div>
     </div>
+
 
     <div class="col-md-9">
       <p>みんなの投稿一覧</p>

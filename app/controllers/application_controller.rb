@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
    private
 
   def after_authentication_url
-    user_path(Current.user)
+    mypage_path(Current.user)
   end
 
   def after_logout_url

@@ -1,8 +1,16 @@
-<div>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
 
-  <h3>
-  ハンドルネーム: <%= @user.handle_name %><br>
-  ユーザーイメージ: <br>
-  <%= image_tag @user.get_profile_image(100,100) %>
-  </h3>
+      <div class="card"> 
+        <div class="card-body">
+          ハンドルネーム: <%= @user.handle_name %><br>
+          ユーザーイメージ: <br>
+          <%= image_tag @user.get_profile_image(100,100),  class: "img-fluid rounded-circle" %>
+          <%= link_to "ユーザー編集", edit_user_path(Current.user.id) %>
+        </div> 
+      </div>
+
+    </div>
+  </div>
 </div>
