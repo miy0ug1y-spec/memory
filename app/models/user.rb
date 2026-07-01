@@ -8,7 +8,7 @@ class User < ApplicationRecord
     if image.attached?
       image.variant(resize_to_fill: [width, height]).processed
     else
-      "no_image_square.jpg"
+      "people.jpg"
     end
   end
   validates :name, presence: true
