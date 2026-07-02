@@ -18,3 +18,23 @@
 body {
   background-image: asset-url("hoge.jpg");
 }
+.character {
+  position:fixed;
+  left:20px;
+  bottom:20px;
+  width:150px;
+  z-index:1000;
+}
+html,body {
+  height:100%;
+}
+
+body {
+  min-width:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+main {
+  flex: 1;
+}

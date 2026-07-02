@@ -14,7 +14,8 @@
 
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-3 d-flex justify-content-end">
+   <p>ユーザー情報</p>
+    <div class="col-md-3 d-flex">
       <div class="card w-100">
         <div class="card-body">
          <p>@<%= link_to Current.user.handle_name, user_path(Current.user) %></p>
@@ -22,7 +23,7 @@
        </div>
       </div>
     </div>
-
+    
 
     <div class="col-md-9">
       <p>みんなの投稿一覧</p>
@@ -57,9 +58,8 @@
           </div>
         </div>
       <% end %>
-
     </div>
   </div>
 </div>
-  </div>
-</div>
+<%= image_tag "memorisu.png", class:"character img-fluid rouded-circle" %>
+ 
