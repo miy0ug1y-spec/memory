@@ -7,6 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+puts "seedの実行を開始"
 
 users = [
   { 
@@ -131,3 +132,5 @@ posts.each do |data|
     )
   end
 end
+
+puts "seedの実行が完了しました"
