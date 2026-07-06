@@ -18,11 +18,27 @@
   <h4>画像</h4>
   <% if @post.image.attached? %>
     <%= image_tag @post.image, size: "200x200" %>
+
+    <div>
+      <%= check_box_tag :remove_image, "1" %>
+      <%= label_tag :remove_image, "画像を削除する" %>
+    </div>
   <% end %>
 
   <%= f.file_field :image %><br>
 
-  <%= f.submit '保存' %>
+  <h4>公開設定</h4>
+    <div class="form-check form-check-inline">
+      <%= f.radio_button :is_publish, true, class: "form-check-input", id: "post_is_publish_true" %>
+      <%= f.label :is_publish_true, "公開", class: "form-check-label", for: "post_is_publish_true" %>
+    </div>
+
+    <div class="form-check form-check-inline">
+      <%= f.radio_button :is_publish, false, class: "form-check-input", id: "post_is_publish_false" %>
+      <%= f.label :is_publish_false, "非公開", class: "form-check-label", for: "post_is_publish_false" %>
+    </div>
+  <br> 
+  <%= f.submit '保存' %><br>
   <%= link_to "削除", post_path(@post),  data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %>
 
 <% end %>

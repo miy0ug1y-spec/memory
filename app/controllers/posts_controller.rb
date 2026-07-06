@@ -41,8 +41,16 @@ class PostsController < ApplicationController
    @post = Post.find(params[:id])
    return redirect_to root_path unless @post.user == Current.user 
 
+    if params[:remove_image] == "1"
+      @post.image.purge
+    end
+
     if @post.update(post_params)
-      redirect_to post_path(@post), notice: "投稿の編集が成功しました。"
+      if @post.is_publish?
+        redirect_to mypage_path, notice:"編集が成功しました。"
+      else
+        redirect_to mypost_path, notice:"編集が成功しました。"
+      end
     else
       render :edit, status: :unprocessable_entity
     end

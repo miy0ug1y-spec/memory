@@ -14,9 +14,9 @@
 
 <div class="container mt-4">
   <div class="row">
-   <p>ユーザー情報</p>
-    <div class="col-md-3 d-flex">
-      <div class="card w-100">
+    <div class="col-md-3">
+      <p>ユーザー情報</p>
+    <div class="card w-100">
         <div class="card-body">
          <p>@<%= link_to Current.user.handle_name, user_path(Current.user) %></p>
          <%= image_tag @user.get_profile_image(100,100), class: "img-fluid rounded-circle" %>
