@@ -1,9 +1,9 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
       <div class="col-md-8">
-          <p>あなたの投稿一覧</p>
+          <h5>あなたの投稿一覧</h5>
           <% @posts.each do |post| %>
-          <div class="card mb-3">
+          <div class="card md-3 mt-4">
             <div class="card-body">
               <div class="row">
                 <div class="col-md-10">
@@ -26,4 +26,6 @@
       <%= image_tag "memorisu.png", class:"character img-fluid rounded-circle" %>
     </div>
   </div>
+  <br>
+<%= link_to "＜ マイページへ", mypage_path %>
 </div>

@@ -1,18 +1,17 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-5">
-
-      <div class="card"> 
+    <div class="col-md-8">
+      <h5>ユーザー詳細</h5>
+      <div class="card mt-4"> 
         <div class="card-body">
           ハンドルネーム: <%= @user.handle_name %><br>
-          ユーザーイメージ: <br>
-          <%= image_tag @user.get_profile_image(100,100),  class: "img-fluid rounded-circle" %>
+          <%= image_tag @user.get_profile_image(100,100), size: "150x150", class: "img-fluid rounded-circle" %>
           <% if Current.user && @user == Current.user %>
-            <%= link_to "ユーザー編集", edit_user_path(@user) %>
+            <br><%= link_to "ユーザー編集", edit_user_path(@user) %>
           <% end %>
         </div> 
       </div>
-
     </div>
   </div>
+  <br><%= link_to "＜ マイページへ", mypage_path %>
 </div>

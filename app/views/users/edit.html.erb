@@ -1,4 +1,3 @@
-<h2>ユーザー編集</h2>
 <% if @user.errors.any? %>
   <ul>
     <% @user.errors.full_messages.each do |message| %>
@@ -7,8 +6,14 @@
   </ul>
 <% end %>
 
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h5>ユーザー編集</h5>
+      <%= form_with model: @user do |f| %>
+        <div class="card mt-4">
+          <div class="card-body">
 
-<%= form_with model: @user do |f| %>
   <label for="handle_name">ハンドルネーム: </label>
     <%= f.text_field :handle_name, autofocus: true, id:"handle_name", placeholder:"ハンドルネーム"%><br>
   <label for="inputImage">ユーザーイメージ: </label>
@@ -17,6 +22,15 @@
   <% end %>
     <p>画像を変更する場合のみ選択してください</p>
     <%= f.file_field :image, accept: "image/*" %><br>
-    <%= f.submit "変更を保存" %><br>
+    <br>
+    <%= f.submit "変更を保存" %>
   <% end %>
- <%= button_to "退会する",withdraw_user_path(@user),method: :patch, data: {turbo_confirm: "本当に退会しますか？"} %>
+      </div>
+    </div>
+    <%= button_to "退会する",withdraw_user_path(@user),method: :patch, data: {turbo_confirm: "本当に退会しますか？"} %>
+  </div>
+  <%= link_to "＜ マイページへ",mypage_path %>
+  
+ </div>
+</div>
+

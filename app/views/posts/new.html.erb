@@ -1,4 +1,3 @@
-<h1>投稿フォーム</h1>
 <% if @post.errors.any? %>
   <div class="alert alert-danger">
     <ul>
@@ -8,12 +7,18 @@
     </ul>
   </div>
 <% end %>
-<%= form_with model: @post do |f| %>
-  <h4>画像</h4>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h5>投稿フォーム</h5>
+      <%= form_with model: @post do |f| %>
+        <div class="card mt-4">
+          <div class="card-body">
+  <p>画像</p>
   <%= f.file_field :image, accept: "image/*" %>
-  <h4>タイトル</h4>
+  <p>タイトル</p>
   <%= f.text_field :title %>
-  <h4>本文</h4>
+  <p>本文</p>
   <%= f.text_area :body %>
  <div class="mb-3">
  <p>公開設定</p>
@@ -27,5 +32,11 @@
       <%= f.label :is_publish_false, "非公開", class: "form-check-label", for: "post_is_publish_false" %>
     </div>
   </div>
-  <%= f.submit '保存' %>
+  <%= f.submit '保存' %><br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><%= link_to "＜ マイページへ", mypage_path %>
+  </div>
 <% end %>

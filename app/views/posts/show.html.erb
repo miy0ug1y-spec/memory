@@ -1,13 +1,26 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+    <h5>投稿詳細</h5>
+      <div class="card mt-4 md-4">
+        <div class="card-body">
+        <div class="row">
+          <div class="col-md-10">
 <p><%=@post.title %></p>
-
 <p><%=@post.body %></p>
-
 <% if @post.image.attached? %>
   <%= image_tag @post.image, size: "200x200" %>
 <% else %>
   <%= image_tag 'letter.png', size: "200x200" %>
 <% end %>
 <% if Current.user && Current.user == @post.user %>
-  <%= link_to "編集", edit_post_path(@post) %>
-<% end %>
-
+<br><%= link_to "編集", edit_post_path(@post) %>
+<% end %><br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><%= link_to "＜ マイページへ", mypage_path %>
+  </div>
+</div>
