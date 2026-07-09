@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   def create
      @user = User.new(user_params)
     if @user.save
-      redirect_to new_session_path, notice: "ユーザー登録が完了しました！続けてログインしてください。"
+      redirect_to mypage_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -58,6 +58,15 @@ class UsersController < ApplicationController
   private
  
   def user_params
-    params.require(:user).permit(:name, :handle_name, :email_address, :password, :password_confirmation, :image)
+    params.require(:user).permit(
+      :last_name,
+      :first_name, 
+      :handle_name, 
+      :email_address,
+      :birthday, 
+      :password, 
+      :password_confirmation, 
+      :image
+      )
   end
 end

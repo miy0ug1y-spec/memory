@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <h5>MyEnding</h5>
+        <%= form_with model: @ending do |f| %>
+        <div class="card mb-3 mt-4">
+          <div class="card-body">
+            <p>名前</p>
+            <% if Current.user %>
+              <%= Current.user.last_name %>
+              <%= Current.user.first_name %><br>
+            
+            <p>生年月日</p>
+              <%= Current.user.birthday %>
+            <% end %>
+
+            <p>大切な人に伝えたいことや感謝の気持ち</p>
+              <%= f.text_area :feeling %>
+              <%= f.file_field :image %>
+
+            <p>エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
+              <%= f.text_area :episode %>
+            <p>自分の投稿から選択</p>
+            <%= f.collection_select :post_id, @posts, :id, :title, prompt: "選択してください" %><br>
+              <%= f.submit "保存" %> 
+        <% end %>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+

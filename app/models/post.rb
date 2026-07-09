@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_one_attached :image
   scope :published, -> { where(is_publish: true) }
+  has_many :endings, dependent: :destroy
   
   validates :title, presence: true
   validates :body, presence: true

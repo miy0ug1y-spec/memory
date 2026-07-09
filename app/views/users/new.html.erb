@@ -13,13 +13,23 @@
   <% end %>
   
   <div class="field">
+    <%= f.label :姓 %><br>
+    <%= f.text_field :last_name, autofocus: true %>
+  </div>
+
+  <div class="field">
     <%= f.label :名前 %><br>
-    <%= f.text_field :name, autofocus: true %>
+    <%= f.text_field :first_name %>
+  </div>
+
+   <div class="field">
+    <%= f.label :生年月日 %><br>
+    <%= f.date_field :birthday %>
   </div>
 
   <div class="field">
     <%= f.label :ハンドルネーム %><br>
-    <%= f.text_field :handle_name, autofocus: true %>
+    <%= f.text_field :handle_name %>
   </div>
 
 

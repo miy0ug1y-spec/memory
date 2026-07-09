@@ -14,8 +14,14 @@
         <div class="card mt-4">
           <div class="card-body">
 
+  <label for="last_name">姓: </label>
+    <%= f.text_field :last_name %>
+  <br><label for="first_name">名前: </label>
+    <%= f.text_field :first_name %><br>
+  <label for="birthday">生年月日: </label>
+    <%= f.text_field :birthday %><br>
   <label for="handle_name">ハンドルネーム: </label>
-    <%= f.text_field :handle_name, autofocus: true, id:"handle_name", placeholder:"ハンドルネーム"%><br>
+    <%= f.text_field :handle_name, autofocus: true, placeholder:"ハンドルネーム"%><br>
   <label for="inputImage">ユーザーイメージ: </label>
     <% if @user.image.attached? %>
     <%= image_tag @user.get_profile_image(150,150) %>
