@@ -47,7 +47,11 @@
                   <%= link_to "MyPOST", mypost_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "MyENDING", new_endings_path, class: "nav-link" %>
+                  <% if Current.user.ending %>
+                    <%= link_to "MyEnding", ending_path(Current.user.ending), class: "nav-link" %>
+                  <% else %>
+                    <%= link_to "MyEndingを作成", new_ending_path, class: "nav-link" %>
+                  <% end %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "ログアウト", session_path,

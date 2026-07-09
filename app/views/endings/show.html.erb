@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <h5>MyEnding</h5>
+        <div class="card">
+          <div class="card-body">
+          <p>氏名</p>
+            <%= @ending.user.last_name %>
+            <%= @ending.user.first_name %><br>
+          <p>生年月日</p>
+            <%= @ending.user.birthday %><br>
+          <p>大切な人に伝えたいことや感謝の気持ち</p>
+            <%= @ending.feeling %>
+          <p>エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
+             <%= @ending.episode %>
+             <% if @ending.images.attached? %>
+               <%= image_tag @ending.images, size:"200x200" %>
+             <% end %>
+          </div>
+        </div>  
+        <%= link_to "編集", edit_ending_path(@ending) %>
+    </div>
+  </div>
+</div>

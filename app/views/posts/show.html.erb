@@ -10,8 +10,6 @@
 <p><%=@post.body %></p>
 <% if @post.image.attached? %>
   <%= image_tag @post.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'letter.png', size: "200x200" %>
 <% end %>
 <% if Current.user && Current.user == @post.user %>
 <br><%= link_to "編集", edit_post_path(@post) %>

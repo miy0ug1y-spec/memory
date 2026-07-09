@@ -62,3 +62,7 @@ main {
   -webkit-mask-image: linear-gradient(to right, black 75%, transparent );
   mask-image: linear-gradient(to right, black 75%, transparent );
 }
+
+.card-body {
+  display: inline-block;
+}

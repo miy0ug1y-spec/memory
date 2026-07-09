@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
 
-      <h5>MyEnding</h5>
+      <h5>MyEnding作成</h5>
         <%= form_with model: @ending do |f| %>
         <div class="card mb-3 mt-4">
           <div class="card-body">
@@ -12,12 +12,12 @@
               <%= Current.user.first_name %><br>
             
             <p>生年月日</p>
-              <%= Current.user.birthday %>
+              <%= Current.user.birthday %><br>
             <% end %>
 
             <p>大切な人に伝えたいことや感謝の気持ち</p>
               <%= f.text_area :feeling %>
-              <%= f.file_field :image %>
+              <%= f.file_field :images, multiple: true %>
 
             <p>エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
               <%= f.text_area :episode %>
