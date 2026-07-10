@@ -50,7 +50,7 @@
                   <% if Current.user.ending %>
                     <%= link_to "MyENDING", ending_path(Current.user.ending), class: "nav-link" %>
                   <% else %>
-                    <%= link_to "MyENDINGを作成", new_ending_path, class: "nav-link" %>
+                    <%= link_to "MyENDING", new_ending_path, class: "nav-link" %>
                   <% end %>
                 </li>
                 <li class="nav-item">

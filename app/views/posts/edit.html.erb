@@ -43,16 +43,13 @@
     <div class="form-check form-check-inline">
       <%= f.radio_button :is_publish, false, class: "form-check-input", id: "post_is_publish_false" %>
       <%= f.label :is_publish_false, "非公開", class: "form-check-label", for: "post_is_publish_false" %>
-    </div><br>
-  <br> 
-  <%= f.submit '保存' %><br>
-  <%= link_to "削除", post_path(@post),  data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %><br>
-  
-<% end %>
+    </div>
         </div>
       </div>
+      <%= f.submit '保存' %><br>
+  <%= link_to "削除", post_path(@post),  data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %><br>
     </div>
-    
+ <% end %>   
   </div>
     <%= link_to "＜ MyPOSTへ", mypost_path %>
 </div>
