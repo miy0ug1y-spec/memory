@@ -5,19 +5,22 @@ class EndingsController < ApplicationController
     else
       @ending = Ending.new
       @user = Current.user
-      @posts = Current.user.posts
+      @posts = Current.user.posts.with_attached_image
     end
   end
 
   def edit
-    @ending = Ending.find(params[:id])
-    return redirect_to root_path unless @ending.user == Current.user
+    @ending = Current.user.ending
+    unless @ending
+      redirect_to new_ending_path
+    return
+    end
+    @posts = Current.user.posts.with_attached_image
   end
 
   def create
     @ending = Ending.new(ending_params)
     @ending.user_id = Current.user.id
-    @ending.birthday = Current.user.birthday
     if @ending.save
       redirect_to ending_path(@ending)
     else
@@ -32,9 +35,26 @@ class EndingsController < ApplicationController
   end
 
   def update
+    @ending = Current.user.ending
+    
+    unless @ending
+      redirect_to new_ending_path
+    return
+    end
+    if @ending.update(ending_params)
+      redirect_to ending_path(@ending), notice: "更新しました"
+    else
+      @posts = Current.user.posts
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    @ending = Current.user.ending
+    if @ending
+      @ending.destroy
+    end
+    redirect_to new_ending_path, notice: "削除しました"
   end
 
 
@@ -42,10 +62,10 @@ private
 
   def ending_params
     params.require(:ending).permit(
-  :post_id,
   :episode,
   :feeling,
-  :images []
+  :image,
+  post_ids: []
   )
   end
 

@@ -1,6 +1,9 @@
 class Ending < ApplicationRecord
   belongs_to :user
-  belongs_to :post ,optional: true
+ 
+  has_many :ending_posts, dependent: :destroy
+  has_many :posts ,through: :ending_posts
 
-  has_many_attached :images
+  has_one_attached :image
+
 end
