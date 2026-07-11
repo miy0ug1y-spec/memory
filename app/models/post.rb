@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   has_many :ending_posts, dependent: :destroy
   has_many :endings, through: :ending_posts
 
-   has_many :comments, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resources :posts, except: [:index] do
-    resources :comments, only:[:index, :new,:create, :destroy]
+    resources :comments, only:[:create, :destroy]
  	end
   resources :users, path: 'users',path_names: { new: 'sign_up' } do
     member do

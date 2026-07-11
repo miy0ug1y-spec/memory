@@ -5,7 +5,15 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])  
+    @post = Post.find(params[:id]) 
+    @comment = Comment.new
+    @comments = @post.comments.includes(:user).order(created_at: :asc)
+
+    if @comment.save
+      redirect_to post_path(@post), notice:"コメントしました"
+    else
+      render "posts/show", status: :unprocessable_entity
+    end
   end
 
   def mypost

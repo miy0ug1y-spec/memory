@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
     <h5>投稿詳細</h5>
-      <div class="card mt-4 md-4">
+      <div class="card mt-4 mb-4">
         <div class="card-body">
         <div class="row">
           <div class="col-md-10">
@@ -18,6 +18,42 @@
           </div>
         </div>
       </div>
+      
+      <% if @comments.any? %>
+        <% @comments.each do |comment| %>
+          <div class="card">
+            <div class="card-body">
+          <%= image_tag comment.user.get_profile_image(50, 50),class: "rounded-circle me-2 comment-user-image" %>
+          <%= comment.user.handle_name %>
+          <%= simple_format(comment.content) %>
+              <small class="text-muted">
+                <%= comment.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+              </small>
+          <% if Current.user == comment.user %>
+            <%= link_to "削除", post_comment_path(@post, comment), data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" }%>
+          <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+      <p>まだコメントはありません</p>
+      <% end %>
+     
+            
+
+
+      <h5>コメントを投稿する</h5>
+      <% if Current.user %>
+        <%= form_with model: [@post, @comment] do |f| %>
+        <div class="mb-3">
+          <%= f.text_area :content, placeholder:"コメントを入力してください" %>
+          <%= f.submit "コメントする" %>
+        <% end %>
+      <% else %>
+        <p>コメントを投稿するにはログインしてください</p>
+      <% end %>
+      </div>
+
     </div>
     <br><%= link_to "＜ マイページへ", mypage_path %>
   </div>
