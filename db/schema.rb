@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_10_064221) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_13_054455) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_10_064221) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email_address"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_admins_on_email_address", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
@@ -88,11 +96,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_10_064221) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.string "ip_address"
     t.string "user_agent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "admin_id"
+    t.index ["admin_id"], name: "index_sessions_on_admin_id"
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
@@ -120,5 +130,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_10_064221) do
   add_foreign_key "endings", "users"
   add_foreign_key "posts", "genres"
   add_foreign_key "posts", "users"
+  add_foreign_key "sessions", "admins"
   add_foreign_key "sessions", "users"
 end
