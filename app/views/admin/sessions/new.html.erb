@@ -1,15 +1,15 @@
 <h2>管理者ログイン用</h2>
 <%= tag.div(flash[:alert], style:"color:red") if flash[:alert] %>
-  <%= form_with url: admin_session_path do |f| %>
+  <%= form_with url: admin_session_path, scope: :session do |f| %>
     <div>
       <%= f.label :email_address, "メールアドレス" %>
-      <%= f.email_field :email_address, required :true, autofocus :true %>
+      <%= f.email_field :email_address, required: true, autofocus: true %>
     </div>
 
     <div>
       <%= f.label :password, "パスワード" %>
-      <%= f.password_field, required :true %>
+      <%= f.password_field :password, required: true %>
     </div>
 
-    <%= f.submit, "ログイン" %>
+    <%= f.submit "管理者ログイン" %>
   <% end %>

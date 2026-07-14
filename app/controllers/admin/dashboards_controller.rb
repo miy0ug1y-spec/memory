@@ -1,5 +1,7 @@
 class Admin::DashboardsController < Admin::ApplicationController
-  def index
+  def show
     @users = User.all
+    @posts = Post.all
   end
+
 end

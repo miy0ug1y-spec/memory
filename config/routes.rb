@@ -23,12 +23,12 @@ Rails.application.routes.draw do
   
 
   namespace :admin do
-    resouces :users
-    resouces :posts
-    resouces :comments
-    resouces :genres
-    resouces :session, only:[:new, :create, :destroy]
-    get 'dashboards', to: "dashboards#index"
+    resources :users, only: [:destroy]
+    resources :posts
+    resources :comments
+    resources :genres
+    resource :session, only: [:new, :create, :destroy]
+    resource :dashboard, only: :show
   end
 
 

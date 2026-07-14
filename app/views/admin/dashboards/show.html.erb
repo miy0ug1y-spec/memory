@@ -1,0 +1,99 @@
+<!--main-visual-->
+   <div class="main-visual-container mb-4 ">
+   <%= image_tag "memory_mainvisual.webp", class: "img-fluid w-100", style: "height: 400px; object-fit: cover; object-position: center;", alt: "メインビジュアル" %>
+     <div class="position-absolute top-50 start-50 translate-middle text-center w-100 px-3">
+    <h1 class="display-4 fw-bold mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">
+      memory
+    </h1>
+    <h5 class="lead mb-0" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.6);">
+      管理者画面
+    </h5>
+  </div>
+</div>     
+
+
+
+<div class= "container mt-4">
+  <div class= "row g-4">
+    <div class= "col-md-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">ユーザ一覧</h5>
+        </div>
+
+        <div class="card-body">
+        <% if @users.any? %>
+        <ul class="list-group list-group-flush">
+          <% @users.each do |user| %>
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <p class="mb-1 fw-bold">
+                    <%= user.last_name %> 
+                    <%= user.first_name %> 
+                  </p>
+                  <p class="mb-1 text-muted">
+                    <%= user.email_address %>
+                  </p>
+                  <% if user.birthday.present? %>
+                    <small class="text-muted">
+                      生年月日：
+                      <%= user.birthday.strftime("%Y年%m月%d日") %>
+                    </small>
+                  <% end %>
+                </div>
+              <%= link_to '詳細', admin_user_path(user), class:"btn btn-sm btn-outline-primary" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>    
+        <% else %>
+          <p class="text-muted">ユーザーはいません
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card h-100 shadow-sm">
+      <div class="card-header">
+        <h5 class="mb-0">投稿一覧</h5>
+      </div>        
+      <div class="card-body">
+      <% if @posts.any? %>
+            <ul class="list-group list-group-flush">
+              <% @posts.each do |post| %>
+                <li class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div class="me-3">
+                      <p class="mb-1 fw-bold">
+                        <%= post.title %>
+                      </p>
+                      
+                      <p class="mb-1">
+                        <%= truncate(post.body, length: 80) %>
+                      </p>
+
+                      <small class="text-muted">
+                        投稿者：
+                        <%= post.user.handle_name %>
+                      </small>
+                    </div>
+
+                    <%= link_to "詳細", admin_post_path(post), class:"btn btn-sm btn-outline-primary" %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+            <% else %>
+              <p class ="text-muted mb-0">
+                投稿はありません
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

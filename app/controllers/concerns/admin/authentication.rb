@@ -4,7 +4,7 @@ module Admin::Authentication
   included do
     before_action :require_authentication
     helper_method :authenticated_admin?
-    helper_method :current.admin
+    helper_method :current_admin
   end
 
   class_methods do
@@ -21,7 +21,7 @@ module Admin::Authentication
   end
 
   def authenticated_admin?
-    resume_session
+    resume_session.present?
   end
 
   def require_authentication
@@ -30,6 +30,12 @@ module Admin::Authentication
 
   def resume_session
     Current.session ||= find_session_by_cookie
+  end
+
+  def find_session_by_cookie
+    if cookies.signed[:admin_session_id]
+      Session.find_by(id: cookies.signed[:admin_session_id])
+    end
   end
 
   def request_authentication
