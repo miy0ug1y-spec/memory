@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(@post), notice: "コメントを投稿しました"
     else
-      @comments = @post.comments.includes(:user).order(created_at: :asc)
+      @comments = @post.comments.includes(:user).order(created_at: :desc)
       render "posts/show", status: :unprocessable_entity
     end
   end

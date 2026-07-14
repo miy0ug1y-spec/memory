@@ -23,9 +23,9 @@ Rails.application.routes.draw do
   
 
   namespace :admin do
-    resources :users, only: [:destroy]
-    resources :posts
-    resources :comments
+    resources :users, only: [:destroy, :show]
+    resources :posts, only: [:destroy, :show]
+    resources :comments,only: [:destroy]
     resources :genres
     resource :session, only: [:new, :create, :destroy]
     resource :dashboard, only: :show
