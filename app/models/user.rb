@@ -1,10 +1,30 @@
 class User < ApplicationRecord
+  
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_one :ending, dependent: :destroy
   has_many :comments, dependent: :destroy
+  
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  enum :gender, {
+    undisclosed: 0,
+    male: 1,
+    female: 2
+  }
+  def gender_japanese
+    case gender
+    when "undisclosed"
+      "(性別回答なし)"
+    when "male"
+      "(男性)"
+    when "female"
+      "(女性)"
+    end
+  end
+
+
   has_one_attached :image
   def get_profile_image(width, height)
     if image.attached?

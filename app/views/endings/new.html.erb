@@ -9,8 +9,8 @@
             <p>名前</p>
             <% if Current.user %>
               <%= Current.user.last_name %>
-              <%= Current.user.first_name %><br>
-            
+              <%= Current.user.first_name %>
+              <%= Current.user.gender_japanese %><br>
             <p>生年月日</p>
               <%= Current.user.birthday %><br>
             <% end %>

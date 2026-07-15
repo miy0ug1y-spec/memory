@@ -18,7 +18,12 @@
     <%= f.text_field :last_name %>
   <br><label for="first_name">名前: </label>
     <%= f.text_field :first_name %><br>
-  <label for="birthday">生年月日: </label>
+  <label for="gender">性別：</label>
+    <%= f.radio_button :gender, :male %>
+    <%= f.label :gender_male, "男性" %>
+    <%= f.radio_button :gender, :female %>
+    <%= f.label :gender_female, "女性" %>
+  <br><label for="birthday">生年月日: </label>
     <%= f.text_field :birthday %><br>
   <label for="handle_name">ハンドルネーム: </label>
     <%= f.text_field :handle_name, autofocus: true, placeholder:"ハンドルネーム"%><br>

@@ -21,8 +21,18 @@
     <%= f.label :名前 %><br>
     <%= f.text_field :first_name %>
   </div>
+  
+  <div class="field">
+    <%= f.label :性別 %><br>  
+    <%= f.radio_button :gender, :male %>
+    <%= f.label :gender_male, "男性" %>
 
-   <div class="field">
+    <%= f.radio_button :gender, :female %>
+    <%= f.label :gender_female, "女性" %>
+
+  </div>
+
+  <div class="field">
     <%= f.label :生年月日 %><br>
     <%= f.date_field :birthday %>
   </div>
