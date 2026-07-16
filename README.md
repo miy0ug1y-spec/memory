@@ -16,7 +16,8 @@
 
 ### ターゲットユーザ
 ・大切な人を失った気持ちを一人で整理したい人​<br>
-・心理的負担を誰かに相談したい人
+・心理的負担を誰かに相談したい人<br>
+・整理した気持ちを遺す人に伝えたい人<br>
 
 ### 主な利用シーン
 ・大切な人への想いを投稿する時 <br>
@@ -24,7 +25,18 @@
 ・自分と共感する人を検索する時 <br>
 
 ## 設計書
-・
+・UIフロー図
+https://app.diagrams.net/#G1zWmGLwgDnzSioCcsJZ_dnLkdH3OJbgXl#%7B%22pageId%22%3A%22yk-s-MSH8fMPck0jPyHd%22%7D
+
+・ER図
+https://app.diagrams.net/#G1oC4gEzXNsw35O7CgBhUo3vp-w2HEYOIZ#%7B%22pageId%22%3A%22Bm_nSNxFcYm47vcTOGLC%22%7D
+
+・アプリケーション詳細設計書
+https://docs.google.com/spreadsheets/d/1l3AG5VtWaieRbXgW79k9IIkfNvwo7PWE05tiZDgU2YY/edit?gid=549108681#gid=549108681
+
+・テーブル定義書
+https://docs.google.com/spreadsheets/d/1Szei__zU3k_qYkifat3q_IbnQ96q9raXSV1G2FUBxWE/edit?gid=1044500859#gid=1044500859
+
 ​
 ## 開発環境
 - OS：Windows
@@ -34,4 +46,7 @@
 - IDE：Visual Studio Code（VSCode）
 ​
 ## 使用素材
-後ほど記載予定
+フリーイラスト素材として以下を使用
+
+・illust-AC(https://www.ac-illust.com/)
+・ぱたくそ(https://www.pakutaso.com/ai/)
