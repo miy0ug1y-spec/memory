@@ -1,60 +1,93 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-8">
+    
     <h5>投稿詳細</h5>
       <div class="card mt-4 mb-4">
         <div class="card-body">
-        <div class="row">
-          <div class="col-md-10">
-<p><%=@post.title %></p>
-<p><%=@post.body %></p>
-<% if @post.image.attached? %>
-  <%= image_tag @post.image, size: "200x200" %>
-<% end %>
-<% if Current.user && Current.user == @post.user %>
-<br><%= link_to "編集", edit_post_path(@post) %>
-<% end %><br>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <% if @comments.any? %>
-        <% @comments.each do |comment| %>
-          <div class="card">
-            <div class="card-body">
-          <%= image_tag comment.user.get_profile_image(50, 50),class: "rounded-circle me-2 comment-user-image" %>
-          <%= comment.user.handle_name %>
-          <%= simple_format(comment.content) %>
-              <small class="text-muted">
-                <%= comment.created_at.strftime("%Y年%m月%d日 %H:%M") %>
-              </small>
-          <% if Current.user == comment.user %>
-            <%= link_to "削除", post_comment_path(@post, comment), data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" }%>
+    
+          <h5><%=@post.title %></h5>
+         
+          <p><%= simple_format(@post.body) %></p>
+
+          <% if @post.image.attached? %>
+            <%= image_tag @post.image, size: "200x200" %>
           <% end %>
+             
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <small class="text-muted">
+              <%= @post.genre&.name ||"ジャンル設定なし" %>
+            </small>
+            <small class="text-muted">
+              <%= @post.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+            </small>
+          </div> 
+
+            </div>
+          </div>
+
+        <% if Current.user && Current.user == @post.user %>
+          <div class="d-flex justify-content-end mb-3">
+            <%= link_to "編集", edit_post_path(@post), class:"btn btn-primary" %>
+          </div>
+        <% end %>        
+
+        
+ 
+      
+        <% if @post.is_publish? %>
+
+          <% if @comments.any? %>
+            <% @comments.each do |comment| %>
+              <div class="card mb-3">
+                <div class="card-body">
+                 
+                  <div class="d-flex align-items-center mb-3">
+                    <%= image_tag comment.user.get_profile_image(50, 50),class: "rounded-circle me-2 comment-user-image" %>
+                    <%= link_to comment.user.handle_name, user_path(comment.user), class:"text-decoration-none" %>
+                  </div>
+
+                  <%= simple_format(comment.content) %>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">
+                        <%= comment.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+                      </small>
+                  
+                  <% if Current.user == comment.user %>
+                    <%= link_to "削除", post_comment_path(@post, comment), data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" }%>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>まだコメントはありません</p>
+        <% end %>
+        
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5>コメントを投稿する</h5>
+
+            <% if Current.user %>
+              <%= form_with model: [@post, @comment] do |f| %>
+                <div class="mb-3">
+                  <%= f.text_area :content, placeholder:"コメントを入力してください", class:"form-control", rows: 1 %>
+                </div>
+
+                <%= f.submit "コメントする", class:"btn btn-outline-primary" %>
+              <% end %>
+              <% else %>
+                <p>コメントを投稿するにはログインしてください</p>
+              <% end %>
             </div>
           </div>
         <% end %>
-      <% else %>
-      <p>まだコメントはありません</p>
-      <% end %>
-     
-            
-
-
-      <h5>コメントを投稿する</h5>
-      <% if Current.user %>
-        <%= form_with model: [@post, @comment] do |f| %>
-        <div class="mb-3">
-          <%= f.text_area :content, placeholder:"コメントを入力してください" %>
-          <%= f.submit "コメントする" %>
-        <% end %>
-      <% else %>
-        <p>コメントを投稿するにはログインしてください</p>
-      <% end %>
       </div>
-
     </div>
-    <br><%= link_to "＜ マイページへ", mypage_path %>
+  <div class="mb-4">
+    <%= link_to "＜ マイページへ", mypage_path %>
   </div>
 </div>
+      
+         

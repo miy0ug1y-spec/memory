@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
- 
+  belongs_to :genre, optional: true
   has_one_attached :image
 
   scope :published, -> { where(is_publish: true) }

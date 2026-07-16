@@ -2,6 +2,12 @@ class PostsController < ApplicationController
   allow_unauthenticated_access only: [:index]
   def index
     @posts = Post.published 
+    @genres = Genre.all
+
+    if params[:genre_id].present?
+      @posts = @posts.where(genre_id: params[:genre_id])
+      @selected_genre = Genre.find_by(id: params[:genre_id]) 
+    end
   end
 
   def show
@@ -17,11 +23,12 @@ class PostsController < ApplicationController
   end
 
   def mypost
-     @posts = Current.user.posts
+     @posts = Current.user.posts.where(is_publish: false)
   end
   
   def new
     @post = Post.new
+    @genres = Genre.all
   end
   
   
@@ -43,6 +50,7 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
     return redirect_to root_path unless @post.user == Current.user
+    @genres = Genre.all
   end
   
   def update
@@ -77,5 +85,5 @@ end
  private
 
   def post_params
-    params.require(:post).permit(:title, :image, :body, :is_publish)
+    params.require(:post).permit(:title, :image, :body, :is_publish, :genre_id)
   end

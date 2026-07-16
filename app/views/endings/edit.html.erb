@@ -6,11 +6,13 @@
       <%= form_with model:@ending do |f| %>
         <div class="card mb-3 mt-4">
           <div class="card-body">
-            <p>大切な人に伝えたいことや感謝の気持ち</p>
-              <%= f.text_area :feeling, autofocus:true %>
-              <%= f.file_field :image %>
-            <p>エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
-              <%= f.text_area :episode %>
+            <p class="mt-2">大切な人に伝えたいことや感謝の気持ち</p>
+              <%= f.text_area :feeling, autofocus:true, class:"form-control", rows: 5 %>
+              <div class="mt-4">
+                <%= f.file_field :image %>
+              </div>
+            <p class="mt-4">エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
+              <%= f.text_area :episode, class:"form-control", rows:5 %>
               <%= f.collection_check_boxes :post_ids, @posts, :id, :title do |b| %><br>
               <div class="card mb-3">
                 <div class="card-body">
@@ -29,8 +31,10 @@
               
               </div>
             </div>
-            <%= f.submit "保存" %>
-          <%= link_to "削除", ending_path(@ending), data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %>
+          <div class="d-flex justify-content-between">
+            <%= f.submit "保存", class:"btn btn-primary" %>
+            <%= link_to "削除", ending_path(@ending), data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %>
+          </div>
         </div> 
       <% end %>
     </div>

@@ -7,19 +7,20 @@
           <div class="card-body">
           <p>氏名</p>
             <%= @ending.user.last_name %>
-            <%= @ending.user.first_name %><br>
-          <p>生年月日</p>
-            <%= @ending.user.birthday %><br>
-          <p>大切な人に伝えたいことや感謝の気持ち</p>
+            <%= @ending.user.first_name %>
+            <%= @ending.user.gender_japanese %>
+          <p class="mt-4">生年月日</p>
+            <%= @ending.user.birthday %>
+          <p class="mt-4">大切な人に伝えたいことや感謝の気持ち</p>
             <%= @ending.feeling %>
              <% if @ending.image.attached? %>
                <%= image_tag @ending.image, size:"200x200" %>
              <% end %>
-          <p>エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
+          <p class="mt-4">エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
              <%= @ending.episode %>
 
               <% @ending.posts.each do |post| %>
-                <div class="card mb-3">
+                <div class="card mb-3 mt-4">
                   <div class="card-body">
                     <h5><%= post.title %></h5>
                     <p><%= simple_format(post.body) %></p>
@@ -36,7 +37,7 @@
 
     </div>
     <% if Current.user.ending %>
-      <%= link_to "編集", edit_ending_path(@ending) %>
+      <%= link_to "編集", edit_ending_path(@ending), class:"btn btn-outline-primary" %>
     <% end %>
     </div>
   <div class="col-8">

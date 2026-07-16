@@ -1,4 +1,8 @@
 class GenresController < ApplicationController
+  
+  def new
+  end
+
   def index
   end
 
@@ -10,4 +14,11 @@ class GenresController < ApplicationController
 
   def update
   end
+
+  def destroy
+  end
+
+
+
+
 end

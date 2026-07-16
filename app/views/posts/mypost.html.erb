@@ -2,30 +2,42 @@
   <div class="row justify-content-center">
       <div class="col-md-8">
           <h5>わたしだけの投稿一覧</h5>
-          <% @posts.each do |post| %>
-          <div class="card md-3 mt-4">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-10">
-                  <h5>
-                    <%= link_to post.title, post_path(post) %>
-                  </h5>
-                  <p>
-                    <%= truncate(post.body, length: 200) %>
-                  </p>
-                  <% if post.image.attached? %>
-                    <%= image_tag post.image, size: "250x250", class: "img-fluid" %>
-                  <% end %>
+
+          <% if @posts.any? %> 
+
+            <% @posts.each do |post| %>
+            <div class="card mb-3 mt-4">
+              <div class="card-body">
+              
+                    <h5>
+                      <%= link_to post.title, post_path(post) %>
+                    </h5>
+                    <p>
+                      <%= truncate(post.body, length: 200) %>
+                    </p>
+                    <% if post.image.attached? %>
+                      <%= image_tag post.image, size: "250x250", class: "img-fluid" %>
+                    <% end %>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                      <small class="text-muted">
+                        <%= post.genre&.name ||"ジャンル設定なし" %>
+                      </small>
+                      <small class="text-muted">
+                        <%= post.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+                      </small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          <% end %>
+        <% else %>
+          <p class="mt-4 text-center">自分だけに書いている投稿はありません</p>
         <% end %>
-      </div>
+        <%= link_to "＜ マイページへ", mypage_path %>
+        </div>
     <div class="col-8">
       <%= image_tag "memorisu.png", class:"character img-fluid rounded-circle" %>
     </div>
   </div>
-  <br>
-<%= link_to "＜ マイページへ", mypage_path %>
 </div>

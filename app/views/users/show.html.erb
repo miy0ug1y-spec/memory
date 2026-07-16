@@ -7,12 +7,15 @@
           ハンドルネーム: <%= @user.handle_name %><br>
           <%= image_tag @user.get_profile_image(100,100), size: "150x150", class: "img-fluid rounded-circle" %>
           <%= @user.introduction %>
+          <div class="d-flex justify-content-end">
           <% if Current.user && @user == Current.user %>
-            <br><%= link_to "ユーザー編集", edit_user_path(@user) %>
+            <%= link_to "ユーザー編集", edit_user_path(@user), class:"btn btn-outline-primary" %>
           <% end %>
+          </div>
         </div> 
       </div>
     </div>
   </div>
-  <br><%= link_to "＜ マイページへ", mypage_path %>
+  <%= link_to "＜ マイページへ", mypage_path %>
 </div>
+

@@ -11,17 +11,20 @@
               <%= Current.user.last_name %>
               <%= Current.user.first_name %>
               <%= Current.user.gender_japanese %><br>
-            <p>生年月日</p>
+            <p class="mt-4">生年月日</p>
               <%= Current.user.birthday %><br>
             <% end %>
 
-            <p>大切な人に伝えたいことや感謝の気持ち</p>
-              <%= f.text_area :feeling %>
+            <p class="mt-4">大切な人に伝えたいことや感謝の気持ち</p>
+              <%= f.text_area :feeling, class:"form-control", rows: 5 %>
+            
+            <div class="mt-4"> 
               <%= f.file_field :image %>
+            </div>
 
-            <p>エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
-              <%= f.text_area :episode %>
-            <p>自分の投稿から選択</p>
+            <p class="mt-4">エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
+              <%= f.text_area :episode, class:"form-control", rows: 5 %>
+            <p class="mt-4 mb-0">自分の投稿から選択</p>
             <%= f.collection_check_boxes :post_ids, @posts, :id, :title do |b| %><br>
               <div class="card mb-3">
                 <div class="card-body">
@@ -38,7 +41,9 @@
                   </div>
                 </div>
               </div>
-              <%= f.submit "保存" %>
+              <div class="d-flex justify-content-end">
+                <%= f.submit "保存", class:"btn btn-primary" %>
+              </div>
             <% end %> 
         <% end %>
           </div>

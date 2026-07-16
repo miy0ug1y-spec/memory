@@ -14,14 +14,13 @@
       <%= form_with model: @post do |f| %>
         <div class="card mt-4">
           <div class="card-body">
-  <p>画像</p>
-  <%= f.file_field :image, accept: "image/*" %>
+  
   <p>タイトル</p>
-  <%= f.text_field :title %>
-  <p>本文</p>
-  <%= f.text_area :body %>
+  <%= f.text_field :title, class:"form-control", rows: 1 %>
+  <p class="mt-4">本文</p>
+  <%= f.text_area :body, class:"form-control", rows: 4 %>
  <div class="mb-3">
- <p>公開設定</p>
+ <p class="mt-4">公開設定</p>
     <div class="form-check form-check-inline">
       <%= f.radio_button :is_publish, true, class: "form-check-input", id: "post_is_publish_true" %>
       <%= f.label :is_publish_true, "公開", class: "form-check-label", for: "post_is_publish_true" %>
@@ -31,12 +30,18 @@
       <%= f.radio_button :is_publish, false, class: "form-check-input", id: "post_is_publish_false" %>
       <%= f.label :is_publish_false, "非公開", class: "form-check-label", for: "post_is_publish_false" %>
     </div>
+  <p class="mt-4">画像</p>
+    <%= f.file_field :image, accept: "image/*" %>
+  <p class="mt-4">ジャンル設定</p>
+    <%= f.collection_select :genre_id, @genres, :id, :name %>
   </div>
-  <%= f.submit '保存' %><br>
+  <div class="d-flex justify-content-end">
+    <%= f.submit '保存', class:"btn btn-primary" %>
+  </div>
           </div>
         </div>
       </div>
     </div>
-    <br><%= link_to "＜ マイページへ", mypage_path %>
+    <%= link_to "＜ マイページへ", mypage_path %>
   </div>
 <% end %>
