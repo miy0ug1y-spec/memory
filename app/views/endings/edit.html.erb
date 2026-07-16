@@ -6,38 +6,42 @@
       <%= form_with model:@ending do |f| %>
         <div class="card mb-3 mt-4">
           <div class="card-body">
+
             <p class="mt-2">大切な人に伝えたいことや感謝の気持ち</p>
               <%= f.text_area :feeling, autofocus:true, class:"form-control", rows: 5 %>
               <div class="mt-4">
                 <%= f.file_field :image %>
               </div>
+
             <p class="mt-4">エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
               <%= f.text_area :episode, class:"form-control", rows:5 %>
               <%= f.collection_check_boxes :post_ids, @posts, :id, :title do |b| %><br>
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="form-check mb-2">
+
                     <%= b.check_box class: "form_check_input" %>
                     <%= b.label class: "form_check_label fw-bold" do %>
                       <p>この投稿を選択</p>
                     <% end %>
+
                   <h5><%= b.object.title %></h5>
                   <p><%= b.object.body %></p>
-                    <% if b.object.image.attached? %>
-                      <% image_tag b.object.image, class: "img_fluid rounded", style: "max-with: 250px;" %>
-                    <% end %>
+                  <% if b.object.image.attached? %>
+                    <% image_tag b.object.image, class: "img_fluid rounded", style: "max-with: 250px;" %>
+                  <% end %>
                 </div>
               <% end %>  
-              
               </div>
             </div>
-          <div class="d-flex justify-content-between">
-            <%= f.submit "保存", class:"btn btn-primary" %>
-            <%= link_to "削除", ending_path(@ending), data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %>
           </div>
-        </div> 
-      <% end %>
-    </div>
-    <%= link_to "＜ MyENDINGへ", ending_path(@ending) %>
-  </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <%= f.submit "保存", class:"btn btn-primary" %>
+          <%= link_to "削除", ending_path(@ending), data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %>
+        </div>
+      </div> 
+    <% end %>
+  <%= link_to "＜ MyENDINGへ", ending_path(@ending) %>
 </div>
