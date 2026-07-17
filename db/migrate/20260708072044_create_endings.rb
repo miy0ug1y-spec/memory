@@ -1,8 +1,8 @@
 class CreateEndings < ActiveRecord::Migration[8.0]
   def change
     create_table :endings do |t|
-      t.references :user, null: false, foreign_key: true
-      t.references :post, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true, type: :integer
+      t.references :post, null: false, foreign_key: true, type: :integer
       t.text :feeling
       t.text :episode
 
