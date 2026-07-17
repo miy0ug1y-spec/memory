@@ -1,7 +1,7 @@
 class CreateEndingPosts < ActiveRecord::Migration[8.0]
   def change
     create_table :ending_posts do |t|
-      t.references :ending, null: false, foreign_key: true, type: :integer
+      t.references :ending, null: false, foreign_key: true, type: :bigint
       t.references :post, null: false, foreign_key: true, type: :integer
 
       t.timestamps
