@@ -1,4 +1,21 @@
-<!main-visual>
+<div class="container p-2">
+  <%= form_with url:search_path, method: :get do |f| %>
+  <div class="row g-2">
+    <div class="col-md-2">
+      <%= f.select :search_type, [["投稿","post"],["ユーザー","user"]], { selected: params[:search_type] }, class:"form-select" %>
+    </div>
+    <div class="col-md-8">
+      <%= f.text_field :keyword, value:params[:keyword], placeholder:"検索ワードを入力", class:"form-control text-muted" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.submit "検索", class:"btn btn-secondary w-100" %>  
+    </div>
+    <% end %>
+  </div>
+</div>
+
+
+<!-- main-visual -->
   <div class="main-visual-container mb-4">
   <%= image_tag "memory_mainvisual.webp", class: "img-fluid w-100", style: "height: 400px; object-fit: cover; object-position: center;", alt: "メインビジュアル" %>
     <div class="position-absolute top-50 start-50 translate-middle text-center text-white w-100 px-3">

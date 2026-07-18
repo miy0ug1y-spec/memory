@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   
   def mypage
     @posts = Post.published
+    
+
     @user = User.find(Current.user.id)
     if @user != Current.user
       redirect_to root_path

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "searches/index"
   
   get "genres/index"
   get "genres/edit"
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
 
 	get 'mypost' => "posts#mypost"	
   get "mypage" =>"users#mypage"
+  get "search" => "searches#index", as: :search
   
 
   namespace :admin do
