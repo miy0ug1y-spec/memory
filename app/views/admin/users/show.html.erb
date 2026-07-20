@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h5>ユーザー詳細</h5>
+  
+  <div class="card">
+    <div class="card-body">
+      <p>
+        <strong>氏名：</strong>
+        <%= @user.last_name %>
+        <%= @user.first_name %>
+        <%= @user.gender_japanese %>
+      </p>
+      <p>
+        <strong>生年月日：</strong>
+        <%= @user.birthday %>
+      </p>
+      <p>
+        <strong>ハンドルネーム：</strong>
+        <%= @user.handle_name %>
+      </p>
+      <p>
+        <strong>メールアドレス：</strong>
+        <%= @user.email_address %>
+      </p>
+      <p>
+        <strong>会員ステータス：</strong>
+        <%= @user.is_active ? "有効" : "退会済み" %>
+      </p>
+      <div class="d-flex justify-content-end">
+        <% if @user.is_active %>
+          <%= link_to "退会させる", withdraw_admin_user_path(@user), data: {turbo_method: :patch, turbo_confirm: "このユーザーを退会状態にしますか？"}, class:"btn btn-danger" %>
+        <% else %>
+          <%= link_to "ステータスを有効に戻す", activate_admin_user_path(@user), data: {turbo_method: :patch, turbo_confirm: "このユーザーのステータスを有効に戻しますか？"}, class:"btn btn-outline-danger" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= link_to "＜ 戻る", admin_dashboard_path %>
+</div>

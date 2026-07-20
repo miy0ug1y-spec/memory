@@ -92,7 +92,7 @@
                     </small>
                   <% end %>
                 </div>
-              <%= link_to "削除", admin_user_path(user), data: {turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？"}, class:"btn btn-sm btn-outline-danger" %>
+              <%= link_to "詳細", admin_user_path(user), class:"btn btn-sm btn-outline-primary" %>
               </div>
             </li>
           <% end %>
@@ -131,7 +131,7 @@
                       </small>
                     </div>
 
-                    <%= link_to "削除", admin_post_path(post), data: {turbo_method: :delete, turbo_confirm: "この投稿を削除しますか？"}, class:"btn btn-sm btn-outline-danger" %>
+                    <%= link_to "詳細", admin_post_path(post), class:"btn btn-sm btn-outline-primary flex-shrink-0" %>
                   </div>
                 </li>
               <% end %>

@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h5>投稿詳細</h5>
+
+  <div class="card">
+    <div class="card-body">
+      <p>
+        <strong>投稿者：</strong>
+        <%= @post.user.handle_name %>
+      </p>
+      <p>
+        <strong>タイトル：</strong>
+        <%= @post.title %>
+      </p>
+      <p>
+        <strong>本文：</strong>
+        <%= @post.body %>
+      </p>
+      <p>
+        <strong>投稿画像：</strong>
+          <% if @post.image.attached? %>
+            <%= image_tag @post.image, size: "250x250", class:"img-fluid" %>
+          <% end %>
+      </p>
+      <p>
+        <strong>ジャンル：</strong>
+          <%= @post.genre&.name ||"ジャンル設定なし" %>
+      </p>
+      <p>
+        <strong>投稿時間：</strong>
+        <%= @post.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+      </p>
+      <div class="d-flex justify-content-end">
+        <%= link_to "削除", admin_post_path(@post), data: {turbo_method: :delete, turbo_confirm: "この投稿を削除しますか？"}, class:"btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+  <%= link_to "＜ 戻る", admin_dashboard_path %>
+</div>

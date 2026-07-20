@@ -25,7 +25,12 @@ Rails.application.routes.draw do
   
 
   namespace :admin do
-    resources :users, only: [:destroy, :show]
+    resources :users, only: [:show] do
+      member do
+        patch :withdraw
+        patch :activate
+      end
+    end
     resources :posts, only: [:destroy, :show]
     resources :comments,only: [:destroy]
     resources :genres

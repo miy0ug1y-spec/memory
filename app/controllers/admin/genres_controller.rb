@@ -21,7 +21,7 @@ class Admin::GenresController < Admin::ApplicationController
 
   def update
     @genre = Genre.find(params[:id])
-    if @genre.update
+    if @genre.update(genre_params)
       redirect_to admin_genre_path, notice:"ジャンルを更新しました"
     else
       render :edit, status: :unprocessable_entity

@@ -1,6 +1,9 @@
 <div class="container mt-4">
   <h5>検索結果</h5>
-    <% if @search_type == "post" %>
+    <% if @keyword.blank? %>
+      <p>検索ワードを入力してください</p>
+
+    <% elsif @search_type == "post" %>
       <p><%= @keyword %>を含む投稿</p>
 
       <% if @posts.any? %>
@@ -38,4 +41,5 @@
         <p>該当するユーザーはいません</p>
       <% end %>
     <% end %>
+  <%= link_to "＜マイページへ", mypage_path %>
 </div>
