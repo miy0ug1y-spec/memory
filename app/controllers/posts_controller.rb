@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  allow_unauthenticated_access only: [:index]
+  allow_unauthenticated_access only: [:index, :show]
   def index
     @posts = Post.published.includes(:user, :genre).order(created_at: :desc)
     @genres = Genre.all
