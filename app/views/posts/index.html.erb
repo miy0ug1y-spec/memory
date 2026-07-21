@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <div class="mb-4">
+    <%= link_to "すべて", posts_path, class:"btn btn-outline-secondary btn-sm me-2" %>
+
+    <% @genres.each do |genre| %>
+      <%= link_to genre.name, posts_path(genre_id: genre.id), class:"btn btn-outline-secondary btn-sm me-2" %>
+    <% end %>
+  </div>
+
+  <% if @genre.present? %>
+    <h4 class="mb-4"><%= @genre.name %>に関する投稿一覧</h4>
+  <% else %>
+    <h4 class="mb-4">すべての投稿一覧</h4>
+  <% end %>
+
+  <% if @posts.any? %>
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+
+              <div class="d-flex align-items-center mb-2">
+                <%= image_tag post.user.get_profile_image(70,70), size:"70x70", class:"rounded-circle me-2" %>
+                <%= link_to post.user.handle_name, user_path(post.user), class:"text-decoration-none" %>
+              </div>
+
+              <% if post.within_one_week? %>
+                <%= image_tag "new.jpg", size:"80x80",class:"img-fluid" %>
+              <% end %>
+
+              <h5 class="mt-2">
+                <%= link_to post.title, post_path(post), class:"text-decoration-none" %>
+              </h5>
+
+              <p>
+                <%= truncate(post.body, length: 100) %>
+              </p>
+
+              <% if post.image.attached? %>
+                <%= image_tag post.image, class:"img-fluid", style:"width: 100%; height: 250px; object-fit: cover;" %>
+              <% end %>
+
+              <small class="text-muted">
+                 <%= post.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+              </small>
+
+              <div class="mt-2">
+                <small class="text-muted">
+                  <%= post.genre&.name || "ジャンル設定なし" %>
+                </small>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="">このジャンルにはまだ公開投稿がありません</p>
+  <% end %>
+
+  <%= link_to "＜ トップページにもどる", root_path, class:"text-decoration-none" %>
+</div>

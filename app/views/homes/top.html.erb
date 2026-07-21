@@ -23,9 +23,9 @@
         <section class="mb-5">
          
             <div class="d-flex justify-content-between align-items-center bg-light px-3 py-2 mb-3">
-              <h3 class="mb-0"><%= genre.name %>に関する投稿</h3>
+              <h4 class="mb-0"><%= genre.name %>に関する投稿</h4>
               <% if genre_posts.count > 3 %>
-                <%= link_to "続きを見る  ＞",posts_path(genre_id: genre.id), class:"text-decoration-none" %>
+                <%= link_to "続きを見る  ＞",posts_path(genre_id: genre.id), class:"text-decoration-none text-dark" %>
               <% end %>
             </div>
          

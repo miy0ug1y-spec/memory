@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
   allow_unauthenticated_access only: [:index]
   def index
-    @posts = Post.published 
+    @posts = Post.published.includes(:user, :genre).order(created_at: :desc)
     @genres = Genre.all
 
     if params[:genre_id].present?
-      @posts = @posts.where(genre_id: params[:genre_id])
-      @selected_genre = Genre.find_by(id: params[:genre_id]) 
+      @genre = Genre.find(params[:genre_id])
+      @posts = @posts.where(genre_id: @genre.id)
     end
   end
 
