@@ -17,7 +17,12 @@ Rails.application.routes.draw do
       patch :withdraw
     end
   end
-  resources :endings, only:[:new, :create, :show, :edit, :update, :destroy]
+  resources :endings, only:[:new, :create, :show, :edit, :update, :destroy] do
+    member do
+      get :downroad
+    end
+  end
+
 
 	get 'mypost' => "posts#mypost"	
   get "mypage" =>"users#mypage"
