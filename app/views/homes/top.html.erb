@@ -1,0 +1,89 @@
+<!main-visual>
+   <div class="main-visual-container mb-4">
+   <%= image_tag "memory_mainvisual.webp", class: "img-fluid w-100", style: "height: 400px; object-fit: cover; object-position: center;", alt: "メインビジュアル" %>
+     <div class="position-absolute top-50 start-50 translate-middle text-center text-white w-100 px-3">
+    <h1 class="display-4 fw-bold mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">
+      memory
+    </h1>
+    <p class="lead mb-0" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.6);">
+      大切な人を失った人が想いを投稿するコミュニティサイト
+    </p>
+  </div>
+</div>        
+
+
+<!--top -->
+<div class="container mt-4">
+
+    <% @genres.each do |genre| %>
+      <% genre_posts = genre.posts.published.order(created_at: :desc) %> 
+      <% posts = genre_posts.limit(3) %>
+
+
+        <section class="mb-5">
+         
+            <div class="d-flex justify-content-between align-items-center bg-light px-3 py-2 mb-3">
+              <h3 class="mb-0"><%= genre.name %>に関する投稿</h3>
+              <% if genre_posts.count > 3 %>
+                <%= link_to "続きを見る  ＞",posts_path(genre_id: genre.id), class:"text-decoration-none" %>
+              <% end %>
+            </div>
+         
+          <% if posts.any? %>
+            <div class="row">
+              <% posts.each do |post| %>
+                <div class="col-md-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+
+                      <div class="d-flex align-items-center mb-2">
+                        <%= image_tag post.user.get_profile_image(100,100), size: "70x70", class: "rounded-circle me-2" %>
+                        <%= link_to post.user.handle_name, user_path(post.user),class: "text-decoration-none" %>
+                      </div>
+
+                      <% if post.within_one_week? %>
+                        <%= image_tag "new.jpg", size: "80x80", class:"img-fluid" %>
+                      <% end %>
+
+                      <h5>
+                      <%= link_to post.title, post_path(post) %>
+                      </h5>
+
+                      <p class="post-preview">
+                        <%= truncate(post.body, length: 70) %>
+                      </p>
+                    
+                      <% if post.image.attached? %>
+                        <%= image_tag post.image, class: "img-fluid", style: "width: 100%; height: 250px; object-fit: cover;" %>
+                      <% end %>
+
+                      <div class="mt-2">
+                        <small class="text-muted">
+                          <%= post.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+                        </small>
+                      </div>
+
+                      <div>
+                        <small class="text-muted">
+                          <%= post.genre&.name ||"ジャンル設定なし" %>
+                        </small>
+                      </div>
+
+                  </div>
+                </div>
+              </div> 
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-muted">
+            まだこのジャンルには投稿がありません
+          </p> 
+        <% end %>
+      </section>
+    <% end %>
+  </div>
+        
+    
+
+    
+

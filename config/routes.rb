@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   get "genres/index"
   get "genres/edit"
 
-  root to: "posts#index"
+  root to: "homes#top"
   get 'about' => "homes#about"
   resources :registrations
   resource :session
   resources :passwords, param: :token
-  resources :posts, except: [:index] do
+  resources :posts do
     resources :comments, only:[:create, :destroy]
  	end
   resources :users, path: 'users',path_names: { new: 'sign_up' } do
