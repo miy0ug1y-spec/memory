@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   end
   resources :endings, only:[:new, :create, :show, :edit, :update, :destroy] do
     member do
-      get :downroad
+      get :download
     end
   end
 

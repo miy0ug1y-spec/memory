@@ -1,4 +1,5 @@
 class EndingsController < ApplicationController
+ 
   def new
     if Current.user.ending
       redirect_to ending_path(Current.user.ending)
@@ -57,12 +58,12 @@ class EndingsController < ApplicationController
     redirect_to new_ending_path, notice: "削除しました"
   end
 
-  def downroad
+  def download
     @ending = Current.user.ending
 
     if @ending.nil? ||@ending.id != params[:id].to_i
       redirect_to root_path, alert:"ダウンロードできません"
-    return
+      return
     end
 
     pdf = Prawn::Document.new
@@ -73,7 +74,7 @@ class EndingsController < ApplicationController
 
     pdf.font_families.update(
       "JapaneseFont" => {
-        normal: font_path
+        normal: font_path.to_s
       }
     )
 
@@ -88,7 +89,9 @@ class EndingsController < ApplicationController
     pdf.move_down 15
 
     pdf.text "生年月日"
-    pdf.text @ending.user.birthday&.strftime("%Y年%m月%d日") || "未設定"
+    pdf.text (
+      @ending.user.birthday&.strftime("%Y年%m月%d日") || "未設定"
+    )
 
     pdf.move_down 15
 
@@ -101,10 +104,9 @@ class EndingsController < ApplicationController
     pdf.text @ending.episode.to_s
 
     send_data pdf.render,
-      filename: "my_ending.pdf"
+      filename: "my_ending.pdf",
       type: "application/pdf",
-      disposition: "attachment"
-    end
+      disposition: "attachment"  
   end
 
 
