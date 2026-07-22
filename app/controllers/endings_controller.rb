@@ -66,47 +66,12 @@ class EndingsController < ApplicationController
       return
     end
 
-    pdf = Prawn::Document.new
+    pdf_data = EndingPdf.new(@ending).render
 
-    font_path = Rails.root.join(
-      "app/assets/fonts/NotoSansJP-Regular.ttf"
-    )
-
-    pdf.font_families.update(
-      "JapaneseFont" => {
-        normal: font_path.to_s
-      }
-    )
-
-    pdf.font "JapaneseFont"
-
-    pdf.text "MyEnding", size: 24
-    pdf.move_down 20
-
-    pdf.text "氏名"
-    pdf.text "#{@ending.user.last_name} #{@ending.user.first_name}"
-
-    pdf.move_down 15
-
-    pdf.text "生年月日"
-    pdf.text (
-      @ending.user.birthday&.strftime("%Y年%m月%d日") || "未設定"
-    )
-
-    pdf.move_down 15
-
-    pdf.text "大切な人に伝えたいことや感謝の気持ち"
-    pdf.text @ending.feeling.to_s
-
-    pdf.move_down 15
-
-    pdf.text "エピソード　ー忘れられない記憶や懐かしい思い出ー"
-    pdf.text @ending.episode.to_s
-
-    send_data pdf.render,
+    send_data pdf_data,
       filename: "my_ending.pdf",
       type: "application/pdf",
-      disposition: "attachment"  
+      disposition: "inline"  
   end
 
 
@@ -120,6 +85,8 @@ private
   post_ids: []
   )
   end
+
+
 
 end
 
