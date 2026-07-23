@@ -69,7 +69,7 @@
           <div class="card-body">
             <h5>コメントを投稿する</h5>
 
-            <% if Current.user %>
+            <% if authenticated? %>
               <%= form_with model: [@post, @comment] do |f| %>
                 <div class="mb-3">
                   <%= f.text_area :content, placeholder:"コメントを入力してください", class:"form-control", rows: 1 %>
