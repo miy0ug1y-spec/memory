@@ -72,3 +72,33 @@ main {
   height: 40px;
   object-fit: cover;
 }
+
+.member-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 4px 12px;
+  scrollbar-width: thin;
+}
+
+.member-item {
+  flex: 0 0 auto;
+  width: 80px;
+  text-align: center;
+}
+
+.member-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 6px;
+}
+
+.member-name {
+  display: block;
+  font-size: 0.85rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

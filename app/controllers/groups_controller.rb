@@ -6,6 +6,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @members = @group.members.with_attached_image
   end
   
   def new
@@ -20,7 +21,7 @@ class GroupsController < ApplicationController
 
       redirect_to group_path(@group), notice: "グループを作成しました"
     else
-      render :new, status: :unprocessalbe_entity
+      render :new, status: :unprocessable_entity
     end
   end
 

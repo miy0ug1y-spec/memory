@@ -3,7 +3,7 @@ class HomesController < ApplicationController
 
   def top
     @genres = Genre.includes(posts: [:user, image_attachment: :blob]).order(:id)
-
+    @groups = Group.order(created_at: :desc).limit(3)
   end
 
   def about

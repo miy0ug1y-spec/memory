@@ -11,9 +11,13 @@
             <%= f.text_field :name, class:"form-control" %>
 
             <p>コミュニティ紹介</p>
-            <%= f.text_field :introduction, class:"form-control", rows: 5 %>
+            <%= f.text_area :introduction, class:"form-control", rows: 5 %>
 
-            <%= f.submit "保存", class:"btn btn-primary" %>
+            <div class="d-flex justify-content-between mt-4">
+              <%= f.submit "保存", class:"btn btn-primary" %>
+              <%= link_to "削除", group_path(@group),data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } , class:"btn btn-sm btn-outline-danger" %>
+            </div>
+
           <% end %>
         </div>
       </div>
