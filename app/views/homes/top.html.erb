@@ -103,8 +103,9 @@
 
                 <div>
                   <h5 class="card-title" >
-                    <%= link_to group.name, group_path(group), class:"test-decoration-none text-dark" %>
+                    <%= link_to group.name, group_path(group), class:"text-decoration-none text-dark" %>
                   </h5>
+                    <%= image_tag group.get_group_image(300, 200), class:"img-fluid rounded mb-3", style:"width: 100; height: 200px; object-fit: cover;" %>
                 </div>
 
                 <%= link_to "詳細をみる", group_path(group), class:"btn btn-primary ms-3" %>

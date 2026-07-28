@@ -10,7 +10,9 @@
       <% if @groups.any? %>
         <% @groups.each do |group| %>
 
-          <div class="card shadow-sm mt-3 mb-4">
+          <div class="card mb-4 overflow-hidden">
+            <%= image_tag group.get_group_image(300, 200), class:"card-img-top", style:"width: 100%; height: 220px; object-fit: cover;" %>
+            
             <div class="card-body">
 
               <h4>

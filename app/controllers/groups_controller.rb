@@ -7,6 +7,9 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     @members = @group.members.with_attached_image
+
+    @messages = @group.group_messages.includes(user: {image_attachment: :blob}).order(created_at: :asc)
+    @message = GroupMessage.new
   end
   
   def new
@@ -32,6 +35,10 @@ class GroupsController < ApplicationController
   def update
     @group = Current.user.owned_groups.find(params[:id])
 
+    if params[:remove_image] == 1
+      @group.image.purge
+    end
+
     if @group.update(group_params)
       redirect_to group_path(@group), notice: "グループを更新しました"
     else
@@ -51,7 +58,8 @@ class GroupsController < ApplicationController
   def group_params
     params.require(:group).permit(
       :name,
-      :introduction
+      :introduction,
+      :image
     )
   end
   
