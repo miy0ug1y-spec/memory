@@ -9,14 +9,16 @@
           <%= @user.introduction %>
 
 
-          <% relationship = Current.user.active_relationships.find_by(followed: @user) %>
-            <div class="d-flex justify-content-end">
-              <% if relationship %> 
-                <%= button_to "フォロー解除", relationship_path(relationship), method: :delete, class:"btn btn-outline-secondary" %>
-              <% else %>
-                <%= button_to "フォローする", relationships_path(followed_id: @user.id), method: :post, class:"btn btn-outline-primary" %>
-              <% end %>
-            </div>
+          <% if authenticated? && Current.user != @user %>
+            <% relationship = Current.user.active_relationships.find_by(followed: @user) %>
+              <div class="d-flex justify-content-end">
+                <% if relationship %> 
+                  <%= button_to "フォロー解除", relationship_path(relationship), method: :delete, class:"btn btn-outline-secondary" %>
+                <% else %>
+                  <%= button_to "フォローする", relationships_path(followed_id: @user.id), method: :post, class:"btn btn-outline-primary" %>
+                <% end %>
+              </div>
+            <% end %>
 
           <div class="d-flex justify-content-end">
           <% if Current.user && @user == Current.user %>

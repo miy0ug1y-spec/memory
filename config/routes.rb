@@ -28,6 +28,10 @@ Rails.application.routes.draw do
 	get 'mypost' => "posts#mypost"	
   get "mypage" =>"users#mypage"
   get "search" => "searches#index", as: :search
+
+  resources :groups do
+    resource :groupmembership, only: [:create, :destroy], controller: "group_memberships"
+  end
   
 
   namespace :admin do

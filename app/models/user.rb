@@ -51,6 +51,19 @@ class User < ApplicationRecord
       "people.jpg"
     end
   end
+
+  has_many :owned_groups, 
+            class_name: "Group",
+            foreign_key: "owner_id",
+            dependent: :destroy
+            
+  has_many :group_memberships,
+            dependent: :destroy
+
+  has_many :joined_groups,
+            through: :group_memberships,
+            source: :group
+
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :handle_name, presence: true
