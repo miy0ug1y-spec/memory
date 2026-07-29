@@ -33,8 +33,10 @@
             <% end %>
           </div>
         <% end %> 
-
-        <small>コミュニティ作成者：<%= link_to @group.owner.handle_name, user_path(@group.owner) %></small>
+         
+        <div class="d-flex justify-content-end mb-3">
+          <small>コミュニティ作成者：<%= link_to @group.owner.handle_name, user_path(@group.owner), class:"text-decoration-none" %></small>
+        </div>
 
         <div class="d-flex justify-content-end">
           <% if Current.user == @group.owner %>
@@ -43,78 +45,82 @@
           
           <% elsif @group.members.exists?(Current.user.id) %>
 
-            <%= button_to "コミュニティから退出", group_membership_path(@group), method: :delete, class:"btn btn-outline-danger" %>
+            <%= button_to "コミュニティから退出", group_group_membership_path(@group), method: :delete, class:"btn btn-outline-danger" %>
 
           <% else %>
 
-            <%= button_to "コミュニティに参加", group_membership_path(@group), method: :post, class:"btn btn-primary" %>
+            <%= button_to "コミュニティに参加", group_group_membership_path(@group), method: :post, class:"btn btn-primary" %>
 
           <% end %>
         </div>
-
+       </div>
       </div>
-    </div>
-  </div>
-</div>
+   
 
-<div class="card mt-4 shadow-sm">
-  <div class="card-body">
-    <h5 class="bg-success px-3 py-2 rounded mb-3 text-white">コミュニティ掲示板</h5>
 
-    <div class="message-list mb-4">
-      <% @messages.each do |message| %>
-        <div class="d-flex mb-3">
+      <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="bg-success px-3 py-2 rounded mb-3 text-white">コミュニティ掲示板</h5>
 
-          <%= image_tag message.user.get_profile_image(45, 45), class:"rounded-circle me-2 message-user-image" %>
+          <div class="message-list mb-4">
+            <% @messages.each do |message| %>
+              <div class="d-flex mb-3">
 
-          <div class="message-box">
-            <div class="d-flex align-items-center gap-2 mb-1">
+                <%= image_tag message.user.get_profile_image(45, 45), class:"rounded-circle me-2 message-user-image" %>
 
-              <strong>
-                <%= link_to message.user.handle_name, user_path(message.user), class:"text-decoration-none text-dark" %>
-              </strong>
+                <div class="message-box">
+                  <div class="d-flex align-items-center gap-2 mb-1">
 
-              <small class="text-muted">
-                <%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %>
-              </small>
+                    <strong>
+                      <%= link_to message.user.handle_name, user_path(message.user), class:"text-decoration-none text-dark" %>
+                    </strong>
+
+                    <small class="text-muted">
+                      <%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+                    </small>
+                  </div>
+
+                  <%= simple_format(message.content, class:"mb-1") %>
+
+                    <div class="d-flex justify-content-end">
+                      <% if message.user == Current.user || @group.owner == Current.user %>
+                        <%= link_to "削除", group_group_message_path(@group, message), data: { turbo_method: :delete, turbo_confirm: "メッセージを削除しますか？"}, class:"small text-danger" %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
             </div>
+            
+            <% if @group.members.exists?(Current.user.id) %>
+              <%= form_with model: [@group, @message] do |f| %>
 
-            <%= simple_format(message.content, class:"mb-1") %>
+                <% if @message.errors.any? %>
+                  <div class="alert alert-danger">
+                    <%= @message.errors.full_messages.join("、") %>
+                  </div>
+                <% end %>
 
-            <% if message.user == Current.user || @group.owner == Current.user %>
-              <%= link_to "削除", group_group_message_path(@group, message), data: { turbo_method: :delete, turbo_confirm: "メッセージを削除しますか？"}, class:"small text-danger" %>
+                <%= f.text_area  :content, class:"form-control", rows: 2, placeholder:"メッセージを入力する" %>
+
+                <div class="d-flex justify-content-end mt-2">
+                  <%= f.submit "投稿", class:"btn btn-primary fw-bold" %>
+                </div>
+
+              <% end %>
+            <% else %>
+              <p class="text-muted">メッセージを投稿する場合はコミュニティに参加してください</p>
             <% end %>
-            </div>
           </div>
-        <% end %>
-      </div>
+        </div>
       
-      <% if @group.members.exists?(Current.user.id) %>
-        <%= form_with model: [@group, @message] do |f| %>
+        <div class="mt-4">
+          <%= link_to "＜  コミュニティ一覧",groups_path %>
+        </div>
 
-          <% if @message.errors.any? %>
-            <div class="alert alert-danger">
-              <%= @message.errors.full_messages.join("、") %>
-            </div>
-          <% end %>
-
-          <%= f.text_area  :content, class:"form-control", rows: 2, placeholder:"メッセージを入力する" %>
-
-          <div class="d-flex justify-content-end mt-2">
-            <%= f.submit "投稿", class:"btn btn-primary" %>
-          </div>
-
-        <% end %>
-      <% else %>
-        <p class="text-muted mb-0">メッセージを投稿する場合はコミュニティに参加してください</p>
-      <% end %>
+        
+      </div>
     </div>
-  </div>
- 
-  <div class="mt-4">
-    <%= link_to "＜  コミュニティ一覧",groups_path %>
-  </div>
-
   </div>
 </div>
 
