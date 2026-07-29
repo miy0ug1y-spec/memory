@@ -29,6 +29,16 @@
         <strong>投稿時間：</strong>
         <%= @post.created_at.strftime("%Y年%m月%d日 %H:%M") %>
       </p>
+      <p>
+        <strong>公開状態：</strong>
+
+        <% if @post.is_publish? %>
+          <span class="badge bg-success">公開</span>
+        <% else %>
+          <span class="badge bg-secondary">非公開</span>
+        <% end %>
+      </p>
+
       <div class="d-flex justify-content-end">
         <%= link_to "削除", admin_post_path(@post), data: {turbo_method: :delete, turbo_confirm: "この投稿を削除しますか？"}, class:"btn btn-danger" %>
       </div>

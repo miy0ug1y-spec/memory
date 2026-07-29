@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h4 class="mb-4">コミュニティ一覧</h4>
+
+  <% if @groups.any? %>
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>コミュニティ</th>
+          <th>作成者</th>
+          <th>参加者数</th>
+          <th>作成日</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @groups.each do |group| %>
+          <tr>
+            <td>
+              <%= group.id %>
+            </td>
+            <td>
+              <%= link_to group.name, admin_group_path(group), class:"text-decoration-none" %>
+            </td>
+            <td>
+              <%= group.owner.handle_name %>
+            </td>
+            <td>
+              <%= group.members.count %>
+            </td>
+            <td>
+              <%= group.created_at.strftime("%Y年%m月%d日") %>
+            </td>
+            <td>
+              <%= link_to "削除", admin_group_path(group), data: { turbo_method: :delete, turbo_confirm:"このコミュニティを削除しますか？"}, class:"btn btn-outline-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>コミュニティはありません</p>
+  <% end %>
+  <%= link_to "＜  ダッシュボードに戻る", admin_dashboard_path %>
+</div>
