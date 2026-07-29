@@ -41,21 +41,56 @@
         <div class="d-flex justify-content-end">
           <% if Current.user == @group.owner %>
 
+            <button class="btn btn-secondary me-2" disabled>
+              コミュニティの作成者です
+            </button>
+
             <%= link_to "編集", edit_group_path(@group), class:"btn btn-outline-primary btn-sm" %>
           
-          <% elsif @group.members.exists?(Current.user.id) %>
+          <% elsif @current_membership&.pending? %>
+            <%= button_to "申請中(取り消す)", group_group_membership_path(@group), method: :delete, data: { turbo_confirm: "参加申請を取り消しますか？" }, class:"btn btn-secondary" %>
+              
 
-            <%= button_to "コミュニティから退出", group_group_membership_path(@group), method: :delete, class:"btn btn-outline-danger" %>
+          <% elsif @current_membership&.approved? %>
+            <%= button_to "退出する", group_group_membership_path(@group), method: :delete, class:"btn btn-outline-danger" %>
 
           <% else %>
-
-            <%= button_to "コミュニティに参加", group_group_membership_path(@group), method: :post, class:"btn btn-primary" %>
+            <%= button_to "参加申請する", group_group_membership_path(@group), method: :post, class:"btn btn-primary" %>
 
           <% end %>
         </div>
        </div>
       </div>
    
+      <% if @group.owner == Current.user %>
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="text-center">参加申請一覧</h5>
+              
+            <% if @pending_memberships.any? %>
+              <% @pending_memberships.each do |membership| %>
+                <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+
+                  <div class="d-flex align-items-center">
+                    <%= image_tag membership.user.get_profile_image(50, 50), size:"50x50", class:"rounded-circle me-2" %>
+
+                    <%= link_to membership.user.handle_name, user_path(membership.user), class:"text-decoration-none" %>
+                  </div>
+                  
+                  <div class="d-flex gap-2">
+                    <%= button_to "承認", approve_group_group_membership_path(@group, membership), method: :patch, class:"btn btn-primary btn-sm" %>
+                    <%= button_to "非承認",reject_group_group_membership_path(@group, membership), method: :patch, data: { turbo_confirm: "この参加申請を非承認にしますか？" }, class:"btn btn-outline-danger btn-sm" %>
+                  </div>
+
+                </div>
+
+              <% end %>
+            <% else %>
+              <p class="text-muted mb-0">現在、参加申請はありません</p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
 
 
       <div class="card mt-4 shadow-sm">

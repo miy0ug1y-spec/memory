@@ -8,6 +8,11 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @members = @group.members.with_attached_image
 
+    @current_membership = @group.group_memberships.find_by(user: Current.user)
+    if @group.owner == Current.user
+      @pending_memberships = @group.group_memberships.pending.includes(:user)
+    end
+
     @messages = @group.group_messages.includes(user: {image_attachment: :blob}).order(created_at: :asc)
     @message = GroupMessage.new
   end
@@ -20,9 +25,14 @@ class GroupsController < ApplicationController
     @group = Current.user.owned_groups.new(group_params)
 
     if @group.save
-      @group.group_memberships.create(user: Current.user)
+      @group.group_memberships.create!(
+        user: Current.user,
+        status: :approved
+      )
 
-      redirect_to group_path(@group), notice: "グループを作成しました"
+
+
+      redirect_to group_path(@group), notice: "コミュニティを作成しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -40,7 +50,7 @@ class GroupsController < ApplicationController
     end
 
     if @group.update(group_params)
-      redirect_to group_path(@group), notice: "グループを更新しました"
+      redirect_to group_path(@group), notice: "コミュニティを更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -50,7 +60,7 @@ class GroupsController < ApplicationController
     @group = Current.user.owned_groups.find(params[:id])
     @group.destroy
 
-    redirect_to groups_path, notice: "グループを削除しました"
+    redirect_to groups_path, notice: "コミュニティを削除しました"
   end
 
   private
