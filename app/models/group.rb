@@ -2,7 +2,11 @@ class Group < ApplicationRecord
   belongs_to :owner, class_name: "User"
 
   has_many :group_memberships, dependent: :destroy
-  has_many :members, through: :group_memberships, source: :user
+
+  has_many :approved_group_memberships, -> { approved }, class_name: "GroupMembership"
+  
+  has_many :members, through: :approved_group_memberships, source: :user
+
   has_many :group_messages, dependent: :destroy
 
   has_one_attached :image

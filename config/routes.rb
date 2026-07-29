@@ -33,6 +33,12 @@ Rails.application.routes.draw do
 
   resources :groups do
     resource :group_membership, only: [:create, :destroy], controller: "group_memberships"
+    resources :group_memberships, only: [] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
     resources :group_messages, only: [:create, :destroy]
   end
   
