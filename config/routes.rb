@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "group_messages/create"
+  get "group_messages/destroy"
   get "searches/index"
   
   get "genres/index"
@@ -30,7 +32,8 @@ Rails.application.routes.draw do
   get "search" => "searches#index", as: :search
 
   resources :groups do
-    resource :groupmembership, only: [:create, :destroy], controller: "group_memberships"
+    resource :group_membership, only: [:create, :destroy], controller: "group_memberships"
+    resources :group_messages, only: [:create, :destroy]
   end
   
 

@@ -29,11 +29,13 @@
     <% end %>
   </div>
 
-  <% if @genre.present? %>
-    <h4 class="mb-4"><%= @genre.name %>に関する投稿一覧</h4>
-  <% else %>
-    <h4 class="mb-4">すべての投稿一覧</h4>
-  <% end %>
+  <div class="d-flex justify-content-center bg-light px-3 py-2 mb-3">
+    <% if @genre.present? %>
+      <h4 class="mb-0"><%= @genre.name %>に関する投稿一覧</h4>
+    <% else %>
+      <h4 class="mb-0">すべての投稿一覧</h4>
+    <% end %>
+  </div>
 
   <% if @posts.any? %>
     <div class="row">

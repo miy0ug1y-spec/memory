@@ -24,6 +24,11 @@
             </div>
 
             <div class="mb-3">
+              <%= f.label :image, "コミュニティ画像", class:"form-label">
+              <%= f.file_field :image, class:"from-control" %>
+            </div>
+
+            <div class="mb-3">
               <%= f.label :introduction, "コミュニティ紹介", class: "form-label" %>
 
               <%= f.text_area :introduction, class: "form-control", rows: 5 %>

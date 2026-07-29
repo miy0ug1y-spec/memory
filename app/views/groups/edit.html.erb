@@ -10,6 +10,21 @@
             <p>名前</p>
             <%= f.text_field :name, class:"form-control" %>
 
+            <p class="mt-3">コミュニティ画像</p>
+
+            <% if @group.image.attached? %>
+              <div class="mb-3">
+                <%= image_tag @group.get_group_image(300, 200), class:"img-fluid rounded", style:"max-width: 300px;" %>
+              </div>
+
+              <div class="form-check mb-3">
+                <%= check_box_tag :remove_image, "1", false, class:"form-check-input" %>
+                <%= label_tag :remove_image, "現在の画像を削除する", class:"form-check-label" %>
+              </div>
+            <% end %>           
+
+            <%= f.file_field :image, class:"form-control" %>
+
             <p>コミュニティ紹介</p>
             <%= f.text_area :introduction, class:"form-control", rows: 5 %>
 
@@ -25,4 +40,5 @@
 
     </div>
   </div>
+  <%= link_to "詳細ページへ戻る", group_path(@group) %>
 </div>
