@@ -30,6 +30,9 @@ gem "solid_cable"
 
 gem "prawn"
 
+gem "chartkick"
+gem "groupdate"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
