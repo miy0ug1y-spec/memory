@@ -1,11 +1,9 @@
-class Admin::EndingsController < ApplicationController
+class Admin::EndingsController < Admin::ApplicationController
 
-  def index
-    @endings = Ending.includes(:user).order(created_at: :desc)
-  end
   
   def show
     @ending = Ending.find(params[:id])
+    @user = @ending.user
   end
 
 end

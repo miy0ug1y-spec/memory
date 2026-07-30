@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::ApplicationController
 
   def index
-    @users = User.order(created_at: :asc)
+    @users = User.includes(:ending).order(created_at: :asc)
   end
   
   def show

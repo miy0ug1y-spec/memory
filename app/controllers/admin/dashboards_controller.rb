@@ -7,6 +7,7 @@ class Admin::DashboardsController < Admin::ApplicationController
     @comments = Comment.includes(:post, :user).order(created_at: :desc).limit(display_limit)
     @groups = Group.includes(:owner).order(created_at: :desc).limit(display_limit)
     @endings = Ending.includes(:user).order(created_at: :desc).limit(display_limit)
+    
 
     @users_count = User.count
     @posts_count = Post.count

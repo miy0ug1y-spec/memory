@@ -11,6 +11,7 @@
             <th>生年月日</th>
             <th>ハンドルネーム</th>
             <th>メールアドレス</th>
+            <th>MyEnding</th>
             <th>登録日</th>
             <th></th>
           </tr>
@@ -33,6 +34,14 @@
               <td><%= user.handle_name %></td>
 
               <td><%= user.email_address %></td>
+
+              <td>
+                <% if user.ending.present? %>
+                  <%= link_to "確認", admin_ending_path(user.ending), class:"btn btn-success btn-sm" %>
+                <% else %>
+                  <span class="badge bg-secondary text-white">未作成</span>
+                <% end %>
+              </td>
 
               <td><%= user.created_at.strftime("%Y/%m/%d") %></td>
 

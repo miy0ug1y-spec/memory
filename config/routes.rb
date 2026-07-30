@@ -53,7 +53,7 @@ Rails.application.routes.draw do
     resources :groups, only: [:index, :show, :destroy]
     resources :posts, only: [:destroy, :show, :index]
     resources :comments,only: [:destroy, :index]
-    resources :ending, only: [:index, :show]
+    resources :endings, only: [:show]
     resources :genres
     resource :session, only: [:new, :create, :destroy]
     resource :dashboard, only: :show

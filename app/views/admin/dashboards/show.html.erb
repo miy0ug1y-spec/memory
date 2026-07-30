@@ -46,12 +46,12 @@
     <div class="col-md-3">
       <div class="card shadow-sm h-100">
         <div class="card-body text-center">
-          <h6 class="text-muted">総コメント数</h6>
+          <h6 class="text-muted">総MyEnding数</h6>
             <p class="display-6 mb-1">
-              <%= @comments_count %>
+              <%= @endings_count %>
             </p>
             <small class="text-muted">
-              本日：<%= @today_comments_count %>件
+              本日：<%= @today_endings_count %>件
             </small>
         </div>
       </div>
@@ -258,38 +258,3 @@
   </div>
 </div>
 
-<div class="container mb-4">
-  <div class="card shadow-sm mt-4 mb-3">
-    <div class="card-header">
-      <h5 class="mb-0">最新MyEnding一覧</h5>
-    </div>
-      
-    <div class="card-body">
-      <% if @endings.any? %>
-        <ul class="list-group list-group-flush">
-          <% @endings.each do |ending| %>
-            <li class="list-group-item">
-              <div class="d-flex justify-content-between align-items-start">
-                <div class="me-3">
-
-                  <p class="mb-1">
-                    <%= ending.feeling %>
-                  </p>
-                  <p class="mb-1">
-                    <%= ending.episode %>
-                  </p>
-                  <small class="mb-1">
-                    <%= ending.created_at.strftime("%Y/%m/%d") %>
-                  </small>
-                </div>
-                <%= link_to "詳細", admin_ending_path(ending), class:"btn btn-outline-primary" %>
-              </div>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p class="text-muted">MyEndingはありません</p>
-      <% end %>
-    </div>
-  </div>
-</div>
