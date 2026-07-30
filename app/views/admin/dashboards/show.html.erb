@@ -74,6 +74,65 @@
   </div>
 </div>
 
+<!--chartkick-->
+<div class="container mt-4">
+ 
+      <div class="card shadow-sm mb-2">
+        <div class="card-header">
+          <h5 class="mb-0">過去30日の利用状況</h5>
+        </div>
+
+        <div class="card-body">
+
+          <%= line_chart @activity_chart, 
+            height: "350px", 
+            xtitle: "日付",
+            ytitle: "件数",
+            points: true,
+            curve: false,
+            legend: "bottom",
+            empty: "表示できるデータがありません" %>
+
+        </div>
+      </div>
+
+      <div class="row g-4 mb-5">
+
+        <div class="col-md-5">
+          <div class="card shadow-sm h-100">
+            <div class="card-header">
+              <h5 class="mb-0">ジャンル別投稿数</h5>
+            </div>
+
+            <div class="card-body">
+              <%= pie_chart @posts_by_genre, 
+                donut: true,
+                height: "320px",
+                legend: "bottom",
+                empty: "投稿データはありません" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <div class="card shadow-sm h-100">
+            <div class="card-header">
+              <h5 class="mb-0">コミュニティ参加者ランキング</h5>
+            </div>
+
+            <div class="card-body">
+              <%= column_chart @group_member_counts,
+                height: "320px",
+                xtitle: "参加人数",
+                ytitle: "コミュニティ",
+                empty: "コミュニティデータがありません" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -82,7 +141,7 @@
   <div class= "row g-4">
     <div class= "col-md-6">
       <div class="card h-100 shadow-sm">
-        <div class="card-header">
+        <div class="card-header bg-secondary text-white">
           <h5 class="mb-0">最新ユーザ一覧</h5>
         </div>
 
@@ -125,7 +184,7 @@
 
     <div class="col-md-6">
       <div class="card h-100 shadow-sm">
-        <div class="card-header">
+        <div class="card-header  bg-secondary text-white">
           <h5 class="mb-0">最新投稿一覧</h5>
         </div>        
         <div class="card-body">
@@ -174,7 +233,7 @@
   <div class= "row g-4 mb-5">
     <div class="col-md-6">            
       <div class="card shadow-sm mt-4 h-100">
-        <div class="card-header">
+        <div class="card-header  bg-secondary text-white">
           <h5 class="mb-0">最新コメント一覧</h5>
         </div>
 
@@ -213,7 +272,7 @@
     
     <div class="col-md-6">
       <div class="card shadow-sm mt-4 h-100 mb-3">
-        <div class="card-header">
+        <div class="card-header  bg-secondary text-white">
           <h5 class="mb-0">最新コミュニティ一覧</h5>
         </div>
 
@@ -255,6 +314,12 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
+
+
+
+
+
 
