@@ -6,14 +6,14 @@ class UsersController < ApplicationController
   end
   
   def mypage
-    @posts = Post.published
-    
-
     @user = User.find(Current.user.id)
     if @user != Current.user
       redirect_to root_path
     end
     @user_image = @user.image 
+    @posts = @user.posts.published.with_attached_image.order(created_at: :desc)
+
+    @joined_groups = @user.joined_groups.order(created_at: :desc)
   end
 
   def edit
@@ -55,6 +55,16 @@ class UsersController < ApplicationController
 
     Current.session.destroy
     redirect_to new_user_path, notice: "退会しました。"
+  end
+
+  def following
+    @user = User.find(params[:id])
+    @users = @user.following
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followers
   end
 
   private
