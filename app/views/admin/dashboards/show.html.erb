@@ -15,7 +15,7 @@
 <div class="container mt-4">
   <div class="row g-3 mb-4">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="card shadow-sm h-100">
         <div class="card-body text-center">
           <h6 class="text-muted">総ユーザー数</h6>
@@ -29,7 +29,7 @@
       </div>
     </div>
     
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="card shadow-sm h-100">
         <div class="card-body text-center">
           <h6 class="text-muted">総投稿数</h6>
@@ -43,16 +43,91 @@
       </div>
     </div>
       
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="card shadow-sm h-100">
         <div class="card-body text-center">
-          <h6 class="text-muted">総コメント数</h6>
+          <h6 class="text-muted">総MyEnding数</h6>
             <p class="display-6 mb-1">
-              <%= @comments_count %>
+              <%= @endings_count %>
             </p>
             <small class="text-muted">
-              本日：<%= @today_comments_count %>件
+              本日：<%= @today_endings_count %>件
             </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h6 class="text-muted">総コミュニティ数</h6>
+          <p class="display-6 mb-1">
+            <%= @groups_count %>
+          </p>
+          <small class="text-muted">
+            本日：<%= @today_groups_count %>
+          </small>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+</div>
+
+<!--chartkick-->
+<div class="container mt-4">
+ 
+      <div class="card shadow-sm mb-2">
+        <div class="card-header">
+          <h5 class="mb-0">過去30日の利用状況</h5>
+        </div>
+
+        <div class="card-body">
+
+          <%= line_chart @activity_chart, 
+            height: "350px", 
+            xtitle: "日付",
+            ytitle: "件数",
+            points: true,
+            curve: false,
+            legend: "bottom",
+            empty: "表示できるデータがありません" %>
+
+        </div>
+      </div>
+
+      <div class="row g-4 mb-5">
+
+        <div class="col-md-5">
+          <div class="card shadow-sm h-100">
+            <div class="card-header">
+              <h5 class="mb-0">ジャンル別投稿数</h5>
+            </div>
+
+            <div class="card-body">
+              <%= pie_chart @posts_by_genre, 
+                donut: true,
+                height: "320px",
+                legend: "bottom",
+                empty: "投稿データはありません" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <div class="card shadow-sm h-100">
+            <div class="card-header">
+              <h5 class="mb-0">コミュニティ参加者ランキング</h5>
+            </div>
+
+            <div class="card-body">
+              <%= column_chart @group_member_counts,
+                height: "320px",
+                xtitle: "参加人数",
+                ytitle: "コミュニティ",
+                empty: "コミュニティデータがありません" %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -61,14 +136,13 @@
 
 
 
-
 <!--一覧-->
 <div class= "container mt-4">
   <div class= "row g-4">
     <div class= "col-md-6">
       <div class="card h-100 shadow-sm">
-        <div class="card-header">
-          <h5 class="mb-0">ユーザ一覧</h5>
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0">最新ユーザ一覧</h5>
         </div>
 
         <div class="card-body">
@@ -101,87 +175,151 @@
           <p class="text-muted">ユーザーはいません
           </p>
         <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="card h-100 shadow-sm">
-      <div class="card-header">
-        <h5 class="mb-0">投稿一覧</h5>
-      </div>        
-      <div class="card-body">
-      <% if @posts.any? %>
-            <ul class="list-group list-group-flush">
-              <% @posts.each do |post| %>
-                <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-start">
-                    <div class="me-3">
-                      <p class="mb-1 fw-bold">
-                        <%= post.title %>
-                      </p>
-                      
-                      <p class="mb-1">
-                        <%= truncate(post.body, length: 80) %>
-                      </p>
-
-                      <small class="text-muted">
-                        投稿者：
-                        <%= post.user.handle_name %>
-                      </small>
-                    </div>
-
-                    <%= link_to "詳細", admin_post_path(post), class:"btn btn-sm btn-outline-primary flex-shrink-0" %>
-                  </div>
-                </li>
-              <% end %>
-            </ul>
-            <% else %>
-              <p class ="text-muted mb-0">
-                投稿はありません
-              </p>
-            <% end %>
-          </div>
+        </div>
+        <div class="card-footer text-end">
+          <%= link_to "すべてみる",admin_users_path, class:"text-decoration-none text-dark" %>
         </div>
       </div>
     </div>
-   </div> 
+
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header  bg-secondary text-white">
+          <h5 class="mb-0">最新投稿一覧</h5>
+        </div>        
+        <div class="card-body">
+        <% if @posts.any? %>
+              <ul class="list-group list-group-flush">
+                <% @posts.each do |post| %>
+                  <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div class="me-3">
+                        <p class="mb-1 fw-bold">
+                          <%= post.title %>
+                        </p>
+                        
+                        <p class="mb-1">
+                          <%= truncate(post.body, length: 80) %>
+                        </p>
+
+                        <small class="text-muted">
+                          投稿者：
+                          <%= post.user.handle_name %>
+                        </small>
+                      </div>
+
+                      <%= link_to "詳細", admin_post_path(post), class:"btn btn-sm btn-outline-primary flex-shrink-0" %>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+              <% else %>
+                <p class ="text-muted mb-0">
+                  投稿はありません
+                </p>
+              <% end %>
+            </div>
+            <div class="card-footer text-end">
+              <%= link_to "すべてみる", admin_posts_path, class:"text-decoration-none text-dark" %>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div> 
   </div>
 </div>
 
 <div class="container mb-4">
-  <div class="card shadow-sm">
-    <div class="card-header">
-      <h5 class="mb-0">最新コメント一覧</h5>
+  <div class= "row g-4 mb-5">
+    <div class="col-md-6">            
+      <div class="card shadow-sm mt-4 h-100">
+        <div class="card-header  bg-secondary text-white">
+          <h5 class="mb-0">最新コメント一覧</h5>
+        </div>
+
+        <div class="card-body">
+          <% if @comments.any? %>
+            <ul class="list-group list-group-flush">
+            <% @comments.each do |comment| %>
+              <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div class="me-3">
+                    <p class="mb-1">
+                      <strong><%= comment.user.handle_name %></strong>
+                    </p>
+                    <p class="mb-1">
+                      <%= truncate(comment.content, length:100) %>
+                    </p>
+                    <small class="text-muted">
+                      投稿：<%= comment.post.title %>/<%= comment.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+                    </small>
+                  </div>
+                </div>
+              </li>
+            <% end %>  
+            </ul>
+            <% else %>
+            <p class="text-muted mb-0">
+              コメントはありません
+            </p>
+          <% end %>        
+        </div>
+        <div class="card-footer text-end">
+          <%= link_to "すべてみる", admin_comments_path, class:"text-decoration-none text-dark" %>
+        </div> 
+      </div>
+    </div> 
+    
+    <div class="col-md-6">
+      <div class="card shadow-sm mt-4 h-100 mb-3">
+        <div class="card-header  bg-secondary text-white">
+          <h5 class="mb-0">最新コミュニティ一覧</h5>
+        </div>
+
+        <div class="card-body">
+          <% if @groups.any? %>
+            <ul class="list-group list-group-flush">
+              <% @groups.each do |group| %>
+              <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-start" >
+                  <div class="me-3">
+                    <p class="mb-1">
+                      <strong><%= group.name %></strong>
+                    </p>
+                    <p class="mb-1">
+                      <%= truncate(group.introduction, length:100) %>
+                    </p>
+                    <p>
+                      <small>
+                        作成者：<%= group.owner.handle_name %>
+                      </small>
+                    </p>
+                    <p>
+                      <small class="text-muted">
+                        <%= group.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+                      </small>
+                    </p>
+                  </div>
+                <%= link_to "詳細", admin_group_path(group), class:"btn btn-outline-primary" %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+          <% else %>
+            <p class="text-muted">コミュニティはありません</p>
+          <% end %>        
+        </div>
+        <div class="card-footer text-end">
+          <%= link_to "すべてみる", admin_groups_path, class:"text-decoration-none text-dark" %>
+        </div>
+      </div>
     </div>
 
-    <div class="card-body">
-      <% if @comments.any? %>
-        <ul class="list-group list-group-flush">
-        <% @comments.each do |comment| %>
-          <li class="list-group-item">
-            <div class="d-flex justify-content-between align-items-start">
-              <div class="me-3">
-                <p class="mb-1">
-                  <strong><%= comment.user.handle_name %></strong>
-                </p>
-                <p class="mb-1">
-                  <%= truncate(comment.content, length:100) %>
-                </p>
-                <small class="text-muted">
-                  投稿：<%= comment.post.title %>/<%= comment.created_at.strftime("%Y年%m月%d日 %H:%M") %>
-                </small>
-              </div>
-            <%= link_to "削除",admin_comment_path(comment),data: {turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？"}, class: "btn btn-sm btn-outline-danger"%>
-            </div>
-          </li>
-        <% end %>  
-        </ul>
-        <% else %>
-        <p class="text-muted mb-0">
-          コメントはありません
-        </p>
-      <% end %>
-    </div>
   </div>
 </div>
+
+
+
+
+
+

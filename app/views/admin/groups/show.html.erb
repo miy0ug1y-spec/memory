@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <div class="card mb-3">
+    <div class="card-body">
+
+      <h4><%= @group.name %></h4>
+
+      <%= image_tag @group.get_group_image(300, 200), class:"img-fluid rounded mb-3" %>
+
+      <p>
+        <strong>紹介文：</strong>
+        <%= @group.introduction %>
+      </p>
+
+      <p>
+        <strong>作成者：</strong>
+        <%= link_to @group.owner.handle_name, admin_user_path(@group.owner), class:"text-decoration-none" %>
+      </p>
+
+      <p>
+        <strong>参加者数：</strong>
+        <%= @group.members.count %>
+      </p>
+
+      <p>
+        <strong>作成日：</strong>
+        <%= @group.created_at.strftime("%Y年%m月%d日") %>
+      </p>
+
+      <div class="d-flex justify-content-end mt-4">
+        <%= link_to "コミュニティを削除", admin_group_path(@group), data: { turbo_method: :delete, turbo_confirm: "このコミュニティを削除しますか？"}, class:"btn btn-danger" %>
+      </div>
+   
+    </div>
+  </div>
+  <%= link_to "＜  戻る", admin_groups_path, class:"text-decoration-none" %>
+</div>

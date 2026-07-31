@@ -46,14 +46,16 @@ Rails.application.routes.draw do
   
 
   namespace :admin do
-    resources :users, only: [:show] do
+    resources :users, only: [:index, :show] do
       member do
         patch :withdraw
         patch :activate
       end
     end
-    resources :posts, only: [:destroy, :show]
-    resources :comments,only: [:destroy]
+    resources :groups, only: [:index, :show, :destroy]
+    resources :posts, only: [:destroy, :show, :index]
+    resources :comments,only: [:destroy, :index]
+    resources :endings, only: [:show]
     resources :genres
     resource :session, only: [:new, :create, :destroy]
     resource :dashboard, only: :show
