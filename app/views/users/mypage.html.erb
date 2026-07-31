@@ -29,13 +29,6 @@
 
             <%= image_tag @user.get_profile_image(100,100), class: "img-fluid rounded-circle mb-3" %>
 
-            <div>
-              <%= link_to new_post_path, class: "btn btn-secondary" do %>
-                投稿フォーム
-                <i class="fa-solid fa-pen-fancy text-white"></i>
-              <% end %>
-            </div>
-
           </div>
         </div>
       </div>
@@ -126,7 +119,7 @@
 
         <div class="card-body">
           <% if @joined_groups.any? %>  
-            <div class="d-flex gap-3 horizontal-scroll flex-nowrap pb-2">
+            <div class="d-flex gap-3 horizontal-scroll flex-nowrap pb-3">
                 
               <% @joined_groups.each do |group| %>
                 <div style="min-width: 230px;">

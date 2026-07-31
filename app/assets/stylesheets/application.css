@@ -153,6 +153,13 @@ main {
   margin: 0 auto 6px;
 }
 
+.horizontal-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+  scrollbar-width: thin;
+}
+
 .horizontal-scroll::-webkit-scrollbar {
   height: 8px;
 }
@@ -160,4 +167,11 @@ main {
 .horizontal-scroll::-webkit-scrollbar-thumb {
   background: #bbb;
   border-radius: 10px;
+}
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
