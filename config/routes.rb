@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :users, path: 'users',path_names: { new: 'sign_up' } do
     member do
       patch :withdraw
+      get :following
+      get :followers
     end
   end
   resources :endings, only:[:new, :create, :show, :edit, :update, :destroy] do
