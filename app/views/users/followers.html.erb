@@ -1,0 +1,36 @@
+<div class="container mt-4">  
+  <div class="d-flex justify-content-center bg-light px-3 py-2 mb-3">
+    <h5>あなたを応援しているユーザー一覧</h5>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm mt-4">
+        
+        <div class="card-body" style="min-height: 500px;">
+          <div class="row g-4">
+
+            <% if @users.any? %>
+              <% @users.each do |user| %>
+
+                <div class="col-md-3">
+                  <div class="text-center">
+                    <%= image_tag user.get_profile_image(60, 60), class:"member-image rounded-circle" %>
+                  
+                    <%= link_to user.handle_name, user_path(user), class:"text-decoration-none text-dark fw-semibold" %>
+                  </div>  
+                </div>
+
+              <% end %>
+            <% else %>
+              <p>まだ応援してくれている人はいません</p>
+            <% end %>
+          
+          </div>
+        </div>
+          
+      </div>
+    </div>
+      <%= link_to "＜  戻る", mypage_path %>
+  </div>
+</div>

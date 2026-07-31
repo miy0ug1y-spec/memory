@@ -144,3 +144,20 @@ main {
   font-weight: bold;
   z-index: 2;
 }
+
+.user-avatar {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 6px;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
