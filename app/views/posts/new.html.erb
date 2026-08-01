@@ -9,14 +9,14 @@
 <% end %>
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12 col-md-10 col-lg-8">
       <h5>投稿フォーム</h5>
       <%= form_with model: @post do |f| %>
         <div class="card mt-4">
           <div class="card-body">
   
   <p>タイトル</p>
-  <%= f.text_field :title, class:"form-control", rows: 1 %>
+  <%= f.text_field :title, class:"form-control" %>
   <p class="mt-4">本文</p>
   <%= f.text_area :body, class:"form-control", rows: 4 %>
  <div class="mb-3">
@@ -31,11 +31,11 @@
       <%= f.label :is_publish_false, "非公開", class: "form-check-label", for: "post_is_publish_false" %>
     </div>
   <p class="mt-4">画像</p>
-    <%= f.file_field :image, accept: "image/*" %>
+    <%= f.file_field :image, accept: "image/*", class:"form-control" %>
   <p class="mt-4">ジャンル設定</p>
-    <%= f.collection_select :genre_id, @genres, :id, :name %>
+    <%= f.collection_select :genre_id, @genres, :id, :name, {}, class:"form-select" %>
   </div>
-  <div class="d-flex justify-content-end">
+  <div class="d-grid d-md-flex justify-content-md-end">
     <%= f.submit '保存', class:"btn btn-primary" %>
   </div>
           </div>

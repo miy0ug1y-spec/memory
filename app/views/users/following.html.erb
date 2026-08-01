@@ -1,19 +1,19 @@
 <div class="container mt-4">  
   <div class="d-flex justify-content-center bg-light px-3 py-2 mb-3">
-    <h5>あなたが応援しているユーザー一覧</h5>
+    <h5 class="follow-list-title">あなたが応援しているユーザー一覧</h5>
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12 col-md-10 col-lg-8">
       <div class="card shadow-sm mt-4">
         
-        <div class="card-body" style="min-height: 500px;">
+        <div class="card-body follow-list-body">
           <div class="row g-4">
 
             <% if @users.any? %>
               <% @users.each do |user| %>
 
-                <div class="col-md-3">
+                <div class="col-6 col-sm-4 col-md-3">
                   <div class="text-center">
                     <%= image_tag user.get_profile_image(60, 60), class:"member-image rounded-circle" %>
               
