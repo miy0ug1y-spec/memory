@@ -1,55 +1,73 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12 col-md-10 col-lg-8">
 
       <h5>MyENDINGを作成</h5>
-        <%= form_with model: @ending do |f| %>
+
+      <%= form_with model: @ending do |f| %>
+
         <div class="card mb-3 mt-4">
           <div class="card-body">
             <p>名前</p>
+            
             <% if Current.user %>
+
               <%= Current.user.last_name %>
               <%= Current.user.first_name %>
-              <%= Current.user.gender_japanese %><br>
-            <p class="mt-4">生年月日</p>
-              <%= Current.user.birthday %><br>
+              <%= Current.user.gender_japanese %>
+
+              <p class="mt-4">生年月日</p>
+              <%= Current.user.birthday %>
+
             <% end %>
 
             <p class="mt-4">大切な人に伝えたいことや感謝の気持ち</p>
-              <%= f.text_area :feeling, class:"form-control", rows: 5 %>
             
+            <%= f.text_area :feeling, class:"form-control", rows: 5 %>
+          
             <div class="mt-4"> 
-              <%= f.file_field :image %>
+              <%= f.label :image, "画像", class:"form-label" %>
+              <%= f.file_field :image, class:"form-control" %>
             </div>
 
-            <p class="mt-4">エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
-              <%= f.text_area :episode, class:"form-control", rows: 5 %>
+            <p class="mt-4">エピソード<br>ー忘れられない記憶や懐かしい思い出ー</p>
+            
+            <%= f.text_area :episode, class:"form-control", rows: 5 %>
+
             <p class="mt-4 mb-0">自分の投稿から選択</p>
-            <%= f.collection_check_boxes :post_ids, @posts, :id, :title do |b| %><br>
+
+            <%= f.collection_check_boxes :post_ids, @posts, :id, :title do |b| %>
+            
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="form-check mb-2">
-                  <%= b.check_box class: "form_check_input" %>
-                  <%= b.label class: "form_check_label fw-bold" do %>
-                    <p>この投稿を選択</p>
-                  <% end %>
-                  <h5><%= b.object.title %></h5>
-                  <p><%= b.object.body %></p>
-                    <% if b.object.image.attached? %>
-                      <%= image_tag b.object.image, class: "img-fluid rounded", style: "max-width: 250px;" %>
+                    <%= b.check_box class: "form-check-input" %>
+
+                    <%= b.label class: "form-check-label fw-bold" do %>
+                      この投稿を選択
                     <% end %>
+
+                    <h5><%= b.object.title %></h5>
+                    <p><%= b.object.body %></p>
+
+                    <% if b.object.image.attached? %>
+                      <%= image_tag b.object.image, class: "img-fluid rounded ending-select-image" %>
+                    <% end %>
+
                   </div>
                 </div>
               </div>
+            <% end %>
           </div>
+
         </div>
-      <div class="d-flex justify-content-end">
-        <%= f.submit "保存", class:"btn btn-primary" %>
-       </div>
+        <div class="d-grid d-md-flex justify-content-md-end m-2">
+          <%= f.submit "保存", class:"btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
+
   </div>
-  <% end %> 
-<% end %>
 </div>
 
 

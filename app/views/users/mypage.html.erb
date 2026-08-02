@@ -83,22 +83,22 @@
         
         <div class="row text-center mb-4">
 
-          <div class="col-12 col-md-6 connection-item connection-item-first">
-            <%= link_to followers_user_path(@user), class:"text-decoration-none text-dark" do %>
-              <i class="fa-solid fa-award"></i>
+          <div class="col-12 col-lg-6 connection-item connection-item-first">
+            <%= link_to followers_user_path(@user), class:"connection-link text-decoration-none text-dark" do %>
+              <i class="fa-solid fa-award fs-2"></i>
               あなたは
-                <strong class="display-6 mb-1">
+                <strong class="connection-count">
                   <%= @user.followers.count %>
                 </strong>
               人に応援されています
             <% end %>
           </div>
 
-          <div class="col-12 col-md-6 connection-item">
-            <%= link_to following_user_path(@user), class:"text-decoration-none text-dark" do %>
-              <i class="fa-regular fa-face-smile"></i>
+          <div class="col-12 col-lg-6 connection-item">
+            <%= link_to following_user_path(@user), class:"connection-link text-decoration-none text-dark" do %>
+              <i class="fa-regular fa-face-smile fs-2"></i>
               あなたが応援している人は
-                <strong class="display-6 mb-1">
+                <strong class="connection-count">
                   <%= @user.following.count %>
                 </strong>
               人です
@@ -178,6 +178,13 @@
                   <div class="mt-auto">
                     <small class="text-muted">
                       <%= post.created_at.strftime("%Y年%m月%d日") %>
+                    </small>
+                  </div>
+
+                  <div class="mt-2">
+                    <small class="text-muted">
+                      <i class="fa-solid fa-tag me-1"></i>
+                      <%= post.genre&.name || "ジャンル設定なし" %>
                     </small>
                   </div>
                   

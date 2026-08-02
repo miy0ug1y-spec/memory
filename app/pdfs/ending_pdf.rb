@@ -65,6 +65,11 @@ class EndingPdf
     pdf.move_down 20
     pdf.text @ending.feeling.presence || "未入力", size: 11
 
+    if @ending.image.attached?
+      pdf.move_down 15
+      add_ending_image(pdf)
+    end
+
     pdf.move_down 80
     pdf.text "<エピソード　ー忘れられない記憶や懐かしい思い出ー>", size: 16, align: :center
 
@@ -82,7 +87,7 @@ class EndingPdf
     pdf.text "<memoryのあしあと>", size: 16, align: :center
     pdf.move_down 20
 
-    posts.each_with_index do |post, index|
+    posts.each_with_index do |post|
       pdf.start_new_page if pdf.cursor < 300
 
       pdf.text(
@@ -107,28 +112,7 @@ class EndingPdf
     end
   end
 
-  def add_post_image(pdf, post)
-    return unless post.image.attached?
-
-    converted_image = post.image.variant(
-      resize_to_limit: [500, 350],
-      format: :png
-    ).processed
-
-    converted_image.blob.open do |file|
-      pdf.image(
-        file.path,
-        fit: [500, 350],
-        position: :center
-      )
-    end
-  rescue StandardError => e
-    Rails.logger.error(
-      "PDFへの画像追加に失敗しました： #{e.class} #{e.message}"
-    )
-
-    pdf.text "画像を表示できませんでした", size: 9
-  end
+   
 
   def add_item(pdf, label, value)
     pdf.text label, size: 12
@@ -150,7 +134,53 @@ class EndingPdf
     @ending.user.birthday&.strftime("%Y年%m月%d日") || "未設定"
   end
 
+  def add_post_image(pdf, post)
+    return unless post.image.attached?
+
+    converted_image = post.image.variant(
+      resize_to_limit: [250, 180],
+      format: :png
+    ).processed
+
+    converted_image.blob.open do |file|
+      pdf.image(
+        file.path,
+        fit: [250, 180],
+        position: :center
+      )
+    end
+
+  rescue StandardError => e
+    Rails.logger.error(
+      "PDFへの画像追加に失敗しました :#{e.class} #{e.message}"
+    )
   
+    pdf.text "画像を表示できませんでした", size: 9
+  end
+
+  def add_ending_image(pdf)
+    return unless @ending.image.attached?
+
+    converted_image = @ending.image.variant(
+      resize_to_limit: [250, 180],
+      format: :png
+    ).processed
+
+    converted_image.blob.open do |file|
+      pdf.image(
+        file.path,
+        fit: [250, 180],
+        position: :center
+      )
+    end
+
+    rescue StandardError => e
+      Rails.logger.error(
+        "画像のPDF追加に失敗しました: #{e.class} #{e.message}"
+      )
+    
+    pdf.text "画像を表示できませんでした", size:9
+  end
 
 
 end
