@@ -11,7 +11,9 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
     @user_image = @user.image 
-    @posts = @user.posts.published.with_attached_image.order(created_at: :desc)
+    @posts = @user.posts.published.with_attached_image.order(created_at: :desc).limit(3)
+
+    @published_posts_count = @user.posts.published.count
 
     @joined_groups = @user.joined_groups.order(created_at: :desc)
   end
@@ -60,12 +62,12 @@ class UsersController < ApplicationController
 
   def following
     @user = User.find(params[:id])
-    @users = @user.following
+    @users = @user.following.page(params[:page]).per(12)
   end
 
   def followers
     @user = User.find(params[:id])
-    @users = @user.followers
+    @users = @user.followers.page(params[:page]).per(12)
   end
 
   private

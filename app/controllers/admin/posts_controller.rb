@@ -1,7 +1,7 @@
 class Admin::PostsController < Admin::ApplicationController
 
   def index
-    @posts = Post.order(created_at: :asc) 
+    @posts = Post.includes(:user, :genre).order(created_at: :asc).page(params[:page]).per(10) 
   end
 
   def show

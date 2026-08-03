@@ -34,6 +34,11 @@
             </div>
           </div>
         <% end %>
+
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @groups %>
+        </div>
+
       <% else %>
         <p>まだコミュニティがありません</p>
       <% end %>
