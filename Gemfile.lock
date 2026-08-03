@@ -436,6 +436,7 @@ DEPENDENCIES
   jbuilder
   kamal
   kaminari
+  matrix
   mysql2
   prawn
   propshaft

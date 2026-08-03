@@ -29,6 +29,7 @@ gem "solid_queue"
 gem "solid_cable"
 
 gem "kaminari"
+gem "matrix"
 
 gem "prawn"
 gem "rqrcode"
