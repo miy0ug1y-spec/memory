@@ -13,9 +13,10 @@
               <%= f.text_area :feeling, autofocus:true, class:"form-control", rows: 5 %>
               
               <div class="mt-4">
-                <%= f.label :image, "画像", class:"form-label" %>
+                <%= f.label :image, "動画・画像", class:"form-label" %>
                 <%= f.file_field :image, class:"form-control" %>
               </div>
+            <p class="text-muted small">変更したい添付ファイルを選択してください</p>
 
             <p class="mt-4">エピソード<br>ー忘れられない記憶や懐かしい思い出ー</p>
              
@@ -42,7 +43,7 @@
                   <p><%= b.object.body %></p>
 
                   <% if b.object.image.attached? %>
-                    <%= image_tag b.object.image, class: "img-fluid rounded ending-select-image" %>
+                    <%= image_tag b.object.image, class: "rounded ending-select-image" %>
                   <% end %>
 
                 </div>

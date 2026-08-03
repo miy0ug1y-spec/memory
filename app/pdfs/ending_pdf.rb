@@ -1,4 +1,6 @@
 require "prawn"
+require "rqrcode"
+require "stringio"
 
 class EndingPdf
   def initialize(ending)
@@ -67,7 +69,13 @@ class EndingPdf
 
     if @ending.image.attached?
       pdf.move_down 15
-      add_ending_image(pdf)
+      
+      if @ending.image.image?
+        add_ending_image(pdf)
+      elsif @ending.image.video?
+        add_video_qr(pdf, @ending.image)
+      end
+
     end
 
     pdf.move_down 80
@@ -110,6 +118,35 @@ class EndingPdf
         align: :right
       )
     end
+  end
+
+  def add_video_qr(pdf, attachment)
+    video_url = Rails.application.routes.url_helpers.rails_blob_url(
+      attachment,
+      host: "http://43.206.95.223"
+    )
+
+    qr = RQRCode::QRCode.new(video_url)
+
+    png = qr.as_png(
+      size: 300,
+      border_modules:4
+    )
+
+    pdf.text "動画", size:14
+    pdf.move_down 10
+
+    pdf.image StringIO.new(png.to_s),
+    width: 120,
+    position: :center
+
+    pdf.move_down 5
+
+    pdf.text(
+      "QRコードを読み取ると動画を再生できます",
+      size: 9,
+      align: :center
+    )
   end
 
    

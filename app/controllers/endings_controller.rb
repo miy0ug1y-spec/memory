@@ -65,7 +65,7 @@ class EndingsController < ApplicationController
       redirect_to root_path, alert:"ダウンロードできません"
       return
     end
-
+    
     pdf_data = EndingPdf.new(@ending).render
 
     send_data pdf_data,
