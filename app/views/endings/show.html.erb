@@ -45,13 +45,24 @@
             </div>          
           </div>
     
-        <div class="mt-3 d-flex flex-column flex-md-row justify-content-md-between gap-2">
+        <div class="mt-3 d-flex flex-column flex-md-row justify-content-md-between align-items-start gap-2">
           <% if Current.user.ending %>
-            <%= link_to "編集", edit_ending_path(@ending), class:"btn btn-outline-primary" %>
-            <%= link_to download_ending_path(@ending), class:"btn btn-success fw-bold", target: "_blank", rel: "noopener" do %>
-              <i class="fa-regular fa-file text-white"></i>
-              PDFを表示
-            <% end %>
+
+            <%= link_to "編集", edit_ending_path(@ending), class:"btn btn-outline-primary ending-action-btn " %>
+            
+            <div class="ending-pdf-action text-md-end">
+              <%= link_to download_ending_path(@ending), class:"btn btn-success fw-bold ending-action-btn", target: "_blank", rel: "noopener" do %>
+
+                <i class="fa-regular fa-file text-white"></i>
+                PDFを表示
+
+              <% end %>
+
+              <p class="text-muted small mt-1 mb-0">
+                動画はQRコードとして表示されます
+              </p>
+            </div>
+
           <% end %>
         </div>
       </div>

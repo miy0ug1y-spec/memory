@@ -525,3 +525,18 @@ main {
   display: block;
   margin: 0 auto;
 }
+
+.ending-action-btn {
+  width: 100%;
+}
+
+.ending-pdf-action {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .ending-pdf-action,
+  .ending-action-btn {
+    width: auto;
+  }
+}
