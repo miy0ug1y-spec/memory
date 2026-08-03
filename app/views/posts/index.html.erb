@@ -3,16 +3,19 @@
   <div class="container p-2">
     <%= form_with url:search_path, method: :get do |f| %>
       <div class="row g-2">
-        <div class="col-md-2">
+        <div class="col-12 col-md-2">
           <%= f.select :search_type, [["投稿","post"],["ユーザー","user"]], { selected: params[:search_type] }, class:"form-select" %>
         </div>
-        <div class="col-md-2">
+        <div class="col-12 col-md-2">
           <%= f.select :match_type, [["部分一致","partial"],["完全一致","perfect"]], { selected: params[:match_type] }, class:"form-select" %>
         </div>
-        <div class="col-md-6">
-          <%= f.text_field :keyword, value:params[:keyword], placeholder:"検索ワードを入力", class:"form-control text-muted" %>
+        <div class="col-12 col-md-6">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <%= f.text_field :keyword, value:params[:keyword], placeholder:"検索ワードを入力", class:"form-control search-input text-muted" %>
+          </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-12 col-md-2">
           <%= f.submit "検索", class:"btn btn-light w-100" %>  
         </div>
       </div>
@@ -21,11 +24,11 @@
 <% end %>
 
 <div class="container mt-4">
-  <div class="mb-4">
-    <%= link_to "すべて", posts_path, class:"btn btn-outline-secondary btn-sm me-2" %>
+  <div class="mb-4 d-flex flex-wrap gap-2">
+    <%= link_to "すべて", posts_path, class:"btn btn-outline-secondary btn-sm" %>
 
     <% @genres.each do |genre| %>
-      <%= link_to genre.name, posts_path(genre_id: genre.id), class:"btn btn-outline-secondary btn-sm me-2" %>
+      <%= link_to genre.name, posts_path(genre_id: genre.id), class:"btn btn-outline-secondary btn-sm" %>
     <% end %>
   </div>
 
@@ -40,7 +43,7 @@
   <% if @posts.any? %>
     <div class="row">
       <% @posts.each do |post| %>
-        <div class="col-md-4 mb-4">
+        <div class="col-12 col-sm-6 col-lg-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
 
@@ -62,7 +65,7 @@
               </p>
 
               <% if post.image.attached? %>
-                <%= image_tag post.image, class:"img-fluid", style:"width: 100%; height: 250px; object-fit: cover;" %>
+                <%= image_tag post.image, class:"img-fluid post-index-image" %>
               <% end %>
 
               <small class="text-muted">
@@ -71,6 +74,7 @@
 
               <div class="mt-2">
                 <small class="text-muted">
+                  <i class="fa-solid fa-tag me-1"></i>
                   <%= post.genre&.name || "ジャンル設定なし" %>
                 </small>
               </div>

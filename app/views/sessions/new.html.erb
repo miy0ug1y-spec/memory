@@ -1,10 +1,39 @@
-<h2>ログイン</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-4">
 
-<%= form_with scope: :session, url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.submit "Sign in" %>
-<% end %>
-<br>
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
 
-<%= link_to "Forgot password?", new_password_path %>
+          <h2 class="h4 text-center mb-4">
+            ログイン
+          </h2>
+
+            <%= form_with scope: :session, url: session_path do |form| %>
+
+              <div class="mb-3">
+                <%= form.label :email_address, "メールアドレス", class:"form-label" %>
+                <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class:"form-control" %>
+              </div>
+
+              <div class="mb-3">
+                <%= form.label :password, "パスワード", class:"form-label" %>
+                <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class:"form-control" %>
+              </div>
+
+              <div class="d-grid">
+                <%= form.submit "ログイン", class:"btn btn-primary" %>
+              </div>
+
+            <% end %>
+
+            <div class="text-center mt-3">
+              <%= link_to "パスワードを忘れた方はこちら", new_password_path, class:"text-decoration-none small" %>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

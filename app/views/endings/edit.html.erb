@@ -1,8 +1,8 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12 col-md-10 col-lg-8">
       
-      <h5>MyENDING　編集画面</h5>
+      <h5>MyENDING  編集画面</h5>
 
       <%= form_with model:@ending do |f| %>
         <div class="card mb-3 mt-4">
@@ -13,10 +13,12 @@
               <%= f.text_area :feeling, autofocus:true, class:"form-control", rows: 5 %>
               
               <div class="mt-4">
-                <%= f.file_field :image %>
+                <%= f.label :image, "動画・画像", class:"form-label" %>
+                <%= f.file_field :image, class:"form-control" %>
               </div>
+            <p class="text-muted small">変更したい添付ファイルを選択してください</p>
 
-            <p class="mt-4">エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
+            <p class="mt-4">エピソード<br>ー忘れられない記憶や懐かしい思い出ー</p>
              
             <%= f.text_area :episode, class:"form-control", rows:5 %>
 
@@ -41,7 +43,7 @@
                   <p><%= b.object.body %></p>
 
                   <% if b.object.image.attached? %>
-                    <%= image_tag b.object.image, class: "img-fluid rounded", style: "max-with: 250px;" %>
+                    <%= image_tag b.object.image, class: "rounded ending-select-image" %>
                   <% end %>
 
                 </div>
@@ -52,9 +54,9 @@
           </div>
         </div>
          
-        <div class="d-flex justify-content-between">
+        <div class="d-flex flex-column flex-md-row justify-content-md-between gap-2">
           <%= f.submit "保存", class:"btn btn-primary" %>
-          <%= link_to "削除", ending_path(@ending), data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %>
+          <%= link_to "削除", ending_path(@ending), data: { turbo_method: :delete, turbo_confirm: "本当に削除？" }, class:"btn btn-outline-danger" %>
         </div>
       <% end %>
       <div class="mt-3">

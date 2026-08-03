@@ -1,9 +1,9 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12 col-md-10 col-lg-8">
 
       <h5>MyENDING</h5>
-        <div class="card  md-3 mt-4">
+        <div class="card mb-3 mt-4">
           <div class="card-body">
           <p>氏名</p>
             <%= @ending.user.last_name %>
@@ -11,22 +11,33 @@
             <%= @ending.user.gender_japanese %>
           <p class="mt-4">生年月日</p>
             <%= @ending.user.birthday %>
-          <p class="mt-4">大切な人に伝えたいことや感謝の気持ち</p>
-            <%= @ending.feeling %>
-             <% if @ending.image.attached? %>
-               <%= image_tag @ending.image, size:"200x200" %>
-             <% end %>
-          <p class="mt-4">エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
-             <%= @ending.episode %>
+          <p class="mt-4 text-center mb-2">大切な人に伝えたいことや感謝の気持ち</p>
+            <%= simple_format(@ending.feeling) %>
+            
+            <% if @ending.image.attached? %>
 
-             <p class="mt-4">memoryのあしあと</p>
+              <% if @ending.image.image? %>
+               <%= image_tag @ending.image, class:"ending-image rounded" %>
+              <% elsif @ending.image.video? %>
+                <%= video_tag url_for(@ending.image), controls: true, class:"ending-video rounded" %>
+              <% end %>
+
+            <% end %>
+            
+            <p class="mt-4 text-center mb-2">エピソード<br>
+              ー忘れられない記憶や懐かしい思い出ー
+            </p>
+            
+            <%= simple_format(@ending.episode) %>
+
+            <p class="mt-4 text-center mb-2">memoryのあしあと</p>
               <% @ending.posts.each do |post| %>
                 <div class="card mb-3 mt-4">
                   <div class="card-body">
                     <h5><%= post.title %></h5>
                     <p><%= simple_format(post.body) %></p>
                     <% if post.image.attached? %>
-                      <%= image_tag post.image, class: "img-fluid-rounded", style: "max-width: 300px;" %>
+                      <%= image_tag post.image, class: "rounded ending-post-image" %>
                     <% end %>
                   </div>
                 </div>
@@ -34,10 +45,10 @@
             </div>          
           </div>
     
-        <div class="mt-3 d-flex justify-content-between">
+        <div class="mt-3 d-flex flex-column flex-md-row justify-content-md-between gap-2">
           <% if Current.user.ending %>
             <%= link_to "編集", edit_ending_path(@ending), class:"btn btn-outline-primary" %>
-            <%= link_to download_ending_path(@ending), class:"btn btn-primary fw-bold", target: "_blank", rel: "noopener" do %>
+            <%= link_to download_ending_path(@ending), class:"btn btn-success fw-bold", target: "_blank", rel: "noopener" do %>
               <i class="fa-regular fa-file text-white"></i>
               PDFを表示
             <% end %>
@@ -47,6 +58,3 @@
     <%= link_to "＜ マイページへ", mypage_path %>
   </div>
   
-  <div class="col-8">
-    <%= image_tag "memorisu.png", class:"character img-fluid rounded-circle" %>
-  </div>

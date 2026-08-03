@@ -29,6 +29,7 @@ gem "solid_queue"
 gem "solid_cable"
 
 gem "prawn"
+gem "rqrcode"
 
 gem "chartkick"
 gem "groupdate"
