@@ -1,13 +1,23 @@
 class PostsController < ApplicationController
   allow_unauthenticated_access only: [:index, :show]
+
   def index
-    @posts = Post.published.includes(:user, :genre).order(created_at: :desc)
     @genres = Genre.all
+
+    @posts = Post.published.with_attached_image.order(created_at: :desc)
+
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+      @posts = @posts.where(user_id: @user.id)
+    end
 
     if params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
       @posts = @posts.where(genre_id: @genre.id)
     end
+
+    @posts = @posts.page(params[:page]).per(9)
+      
   end
 
   def show
@@ -23,7 +33,7 @@ class PostsController < ApplicationController
   end
 
   def mypost
-     @posts = Current.user.posts.where(is_publish: false)
+     @posts = Current.user.posts.where(is_publish: false).order(created_at: :desc).page(params[:page]).per(5)
   end
   
   def new

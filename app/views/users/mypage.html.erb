@@ -147,18 +147,25 @@
     <!-- ユーザーの公開中投稿 -->
     <div class="mt-5">
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 bg-light px-3 py-2">
-        <h5 class="mb-0">あなたが公開中の投稿</h5>
+        <h5 class="mb-0">あなたの公開中の投稿</h5>
 
-          <span class="text-muted ">
-            <%= @posts.count %>件
-          </span>
+          <small class="text-muted ">
+            <%= @published_posts_count %>件
+          </small>
       </div>
 
       <% if @posts.any? %>
+
+        <div class="d-flex justify-content-end mb-3">
+          <%= link_to "すべてみる  ＞", posts_path(user_id: Current.user.id), class:"text-decoration-none text-dark" %>
+        </div>
+      
+
         <div class="row g-4">
           
           <% @posts.each do |post| %>
-            <div class="col-12 col-lg-4 col-sm-6">
+
+            <div class="col-12 col-sm-6 col-lg-4">
               <div class="card h-100 shadow-sm">
 
                 <% if post.image.attached? %>
@@ -195,11 +202,9 @@
           <% end %>
         </div>
       <% else %>
-        <div class="card">
-          <div class="card-body text-center">
-            公開中の投稿はありません
-          </div>
-        </div>
+        <p class="text-muted text-center">
+          公開中の投稿はありません
+        </p>   
       <% end %>
     </div>
   </div>

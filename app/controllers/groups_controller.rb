@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   
   def index
-    @groups = Group.includes(:owner).order(created_at: :desc)  
+    @groups = Group.includes(:owner, :members).order(created_at: :desc).page(params[:page]).per(5)  
   end
 
   def show

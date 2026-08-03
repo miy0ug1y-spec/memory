@@ -1,5 +1,10 @@
 <div class="container mt-4">
   <h4 class="mb-0">コメント一覧</h4>
+  <div class="d-flex justify-content-end mt-2">
+    <span class="text-muted">
+      <%= @comments.total_count %>件
+    </span>
+  </div>
 
   <% if @comments.any? %>
     <div class="table-responsive">
@@ -41,6 +46,11 @@
         </tbody>
       </table>
     </div>
+
+    <div class="d-flex justify-content-center mt-4">
+      <%= paginate @comments %>
+    </div>
+
   <% else %>
     <p class="text-muted">コメントはありません</p>
   <% end %>

@@ -33,7 +33,9 @@
   </div>
 
   <div class="d-flex justify-content-center bg-light px-3 py-2 mb-3">
-    <% if @genre.present? %>
+    <% if @user.present? %>
+      <h4 class="mb-0"><%= @user.handle_name %>さんの投稿一覧</h4>
+    <% elsif @genre.present? %>
       <h4 class="mb-0"><%= @genre.name %>に関する投稿一覧</h4>
     <% else %>
       <h4 class="mb-0">すべての投稿一覧</h4>
@@ -65,7 +67,7 @@
               </p>
 
               <% if post.image.attached? %>
-                <%= image_tag post.image, class:"img-fluid post-index-image" %>
+                <%= image_tag post.image, class:"post-index-image" %>
               <% end %>
 
               <small class="text-muted">
@@ -84,6 +86,10 @@
           </div>
         </div>
       <% end %>
+
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @posts %>
+      </div>
     </div>
   <% else %>
     <p class="">このジャンルにはまだ公開投稿がありません</p>

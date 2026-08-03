@@ -1,7 +1,7 @@
 class Admin::CommentsController < Admin::ApplicationController
 
   def index
-    @comments = Comment.includes(:user, :post).order(created_at: :asc)
+    @comments = Comment.includes(:user, :post).order(created_at: :asc).page(params[:page]).per(10)
   end
 
   def destroy
