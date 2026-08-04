@@ -2,6 +2,12 @@ class CommentsController < ApplicationController
  
   def create
    @post = Post.find(params[:post_id])
+
+   if @post.user == Current.user
+    redirect_to post_path(@post), alert:"自分の投稿にはコメントできません"
+    return
+   end
+
    @comment = @post.comments.new(comment_params)
    @comment.user = Current.user
     if @comment.save
@@ -16,7 +22,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
     unless Current.user == @comment.user
-      redirect_to post_path(@post), alart:"このコメントは削除できません"
+      redirect_to post_path(@post), alert:"このコメントは削除できません"
       return
     end
     @comment.destroy

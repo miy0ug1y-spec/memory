@@ -70,7 +70,7 @@
             <div class="card-body">
               <h5>コメントを投稿する</h5>
 
-              <% if authenticated? %>
+              <% if authenticated? && Current.user != @post.user %>
                 <%= form_with model: [@post, @comment] do |f| %>
 
                   <div class="mb-3">
@@ -82,6 +82,8 @@
                   </div> 
 
                 <% end %>
+              <% elsif authenticated? && @post.user == Current.user %> 
+                <p class="text-muted">自分の投稿にはコメントできません</p>
               <% else %>
                 <p>コメントを投稿するにはログインしてください</p>
               <% end %>
