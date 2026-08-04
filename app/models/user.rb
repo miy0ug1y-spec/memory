@@ -61,8 +61,12 @@ class User < ApplicationRecord
   has_many :group_memberships,
             dependent: :destroy
 
+  has_many :approved_group_memberships,
+            -> { approved },
+            class_name: "GroupMembership"
+
   has_many :joined_groups,
-            through: :group_memberships,
+            through: :approved_group_memberships,
             source: :group
 
   validates :last_name, presence: true
