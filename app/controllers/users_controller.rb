@@ -15,7 +15,13 @@ class UsersController < ApplicationController
 
     @published_posts_count = @user.posts.published.count
 
-    @joined_groups = @user.joined_groups.order(created_at: :desc)
+    @joined_groups = Group.joins(:group_memberships).where(
+      group_memberships: {
+        user_id: @user.id,
+        status: GroupMembership.statuses[:approved]
+      }
+    ).order(created_at: :desc)
+
   end
 
   def edit
