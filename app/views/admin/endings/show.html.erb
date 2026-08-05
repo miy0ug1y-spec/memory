@@ -13,8 +13,14 @@
           <%= @ending.user.birthday %>
         <p class="mt-4">大切な人に伝えたいことや感謝の気持ち</p>
           <%= @ending.feeling %>
-            <% if @ending.image.attached? %>
-              <%= image_tag @ending.image, size:"200x200" %>
+            <<% if @ending.image.attached? %>
+
+              <% if @ending.image.image? %>
+               <%= image_tag @ending.image, class:"ending-image rounded" %>
+              <% elsif @ending.image.video? %>
+                <%= video_tag url_for(@ending.image), controls: true, class:"ending-video rounded" %>
+              <% end %>
+
             <% end %>
         <p class="mt-4">エピソード　ー忘れられない記憶や懐かしい思い出ー</p>
           <%= @ending.episode %>
