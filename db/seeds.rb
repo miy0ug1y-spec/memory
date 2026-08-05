@@ -442,6 +442,17 @@ group1.assign_attributes(
 
 group1.save!
 
+group1.image.purge if group1.image.attached?
+
+group1.image.attach(
+  io: File.open(
+    Rails.root.join("db/fixtures/sample-group1.jpg")
+  ),
+  filename: "sample-group1.jpg",
+  content_type: "image/jpeg"
+)
+
+
 group2 = Group.find_or_initialize_by(name: "1日1個良かったことをつぶやく会")
 group2.assign_attributes(
   owner: user2,
@@ -449,6 +460,16 @@ group2.assign_attributes(
 )
 
 group2.save!
+
+group2.image.purge if group2.image.attached?
+
+group2.image.attach(
+  io: File.open(
+    Rails.root.join("db/fixtures/sample-group2.jpg")
+  ),
+  filename: "sample-group2.jpg",
+  content_type: "image/jpeg"
+)
 
 group3 = Group.find_or_initialize_by(name: "ゆっくり前を向く会")
 group3.assign_attributes(
