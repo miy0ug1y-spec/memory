@@ -524,6 +524,24 @@ GroupMessage.find_or_create_by!(
   content: "参加ありがとうございます。無理せず自分のペースで交流してください。"
 )
 
+GroupMessage.find_or_create_by!(
+  user: user3,
+  group: group2,
+  content: "今日家の近所を散歩していたら小さな子供に挨拶してもらえて癒されました。"
+)
+
+GroupMessage.find_or_create_by!(
+  user: user7,
+  group: group2,
+  content: "朝からカフェに行って読書ができて充実できました！"
+)
+
+GroupMessage.find_or_create_by!(
+  user: user2,
+  group: group2,
+  content: "素敵ですね！"
+)
+
 
 puts "コミュニティコメント完了"
 
