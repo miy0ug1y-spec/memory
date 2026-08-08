@@ -52,7 +52,7 @@
               
 
           <% elsif @current_membership&.approved? %>
-            <%= button_to "退出する", group_group_membership_path(@group), method: :delete, class:"btn btn-outline-danger" %>
+            <%= button_to "退出する", group_group_membership_path(@group), method: :delete, data: { turbo_confirm: "コミュニティを退出しますか？" }, class:"btn btn-outline-danger" %>
 
           <% else %>
             <%= button_to "参加申請する", group_group_membership_path(@group), method: :post, class:"btn btn-primary" %>

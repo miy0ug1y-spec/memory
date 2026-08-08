@@ -13,7 +13,7 @@
           <%= @ending.user.birthday %>
         <p class="mt-4">大切な人に伝えたいことや感謝の気持ち</p>
           <%= @ending.feeling %>
-            <<% if @ending.image.attached? %>
+            <% if @ending.image.attached? %>
 
               <% if @ending.image.image? %>
                <%= image_tag @ending.image, class:"ending-image rounded" %>

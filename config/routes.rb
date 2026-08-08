@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
-  get "group_messages/create"
-  get "group_messages/destroy"
-  get "searches/index"
   
-  get "genres/index"
-  get "genres/edit"
 
   root to: "homes#top"
   get 'about' => "homes#about"
-  resources :registrations
+ 
   resource :session
   resources :passwords, param: :token
   resources :posts do

@@ -35,7 +35,7 @@
                 <%= group.created_at.strftime("%Y年%m月%d日") %>
               </td>
               <td>
-                <%= link_to "削除", admin_group_path(group), data: { turbo_method: :delete, turbo_confirm:"このコミュニティを削除しますか？"}, class:"btn btn-outline-danger btn-sm" %>
+                <%= link_to "詳細", admin_group_path(group), class:"btn btn-outline-primary btn-sm" %>
               </td>
             </tr>
           <% end %>
