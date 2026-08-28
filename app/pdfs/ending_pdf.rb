@@ -179,13 +179,11 @@ class EndingPdf
       format: :png
     ).processed
 
-    converted_image.blob.open do |file|
-      pdf.image(
-        file.path,
-        fit: [250, 180],
-        position: :center
-      )
-    end
+    pdf.image(
+      StringIO.new(converted_image.download),
+      fit: [250, 180],
+      position: :center
+    )
 
   rescue StandardError => e
     Rails.logger.error(
@@ -203,13 +201,11 @@ class EndingPdf
       format: :png
     ).processed
 
-    converted_image.blob.open do |file|
-      pdf.image(
-        file.path,
-        fit: [250, 180],
-        position: :center
-      )
-    end
+    pdf.image(
+      StringIO.new(converted_image.download),
+      fit: [250, 180],
+      position: :center
+    )
 
     rescue StandardError => e
       Rails.logger.error(
