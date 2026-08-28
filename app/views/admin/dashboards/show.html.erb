@@ -300,7 +300,9 @@
                       </small>
                     </p>
                   </div>
-                <%= link_to "詳細", admin_group_path(group), class:"btn btn-sm btn-outline-primary flex-shrink-0 text-nowrap" %>
+                  <div class ="ms-3 flex-shrink-0"> 
+                    <%= link_to "詳細", admin_group_path(group), class:"btn btn-sm btn-outline-primary text-nowrap" %>
+                  </div> 
                 </div>
               </li>
             <% end %>
