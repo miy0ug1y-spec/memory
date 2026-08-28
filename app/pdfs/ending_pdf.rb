@@ -123,7 +123,7 @@ class EndingPdf
   def add_video_qr(pdf, attachment)
     video_url = Rails.application.routes.url_helpers.rails_blob_url(
       attachment,
-      host: "http://35.77.70.11"
+      host: "http://13.114.138.13"
     )
 
     qr = RQRCode::QRCode.new(video_url)
