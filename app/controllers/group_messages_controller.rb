@@ -15,7 +15,7 @@ class GroupMessagesController < ApplicationController
       redirect_to group_path(@group), notice: "メッセージを投稿しました"
     else
       @members = @group.members.with_attached_image
-      @messages = @group.group_messages, includes(:user).order(created_at: :asc)
+      @messages = @group.group_messages.includes(:user).order(created_at: :asc)
 
       render "groups/show", status: :unprocessable_entity
     end

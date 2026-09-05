@@ -53,6 +53,7 @@ class PostsController < ApplicationController
         redirect_to mypost_path
       end
     else
+      @genres = Genre.all
       render :new, status: :unprocessable_entity
     end
   end

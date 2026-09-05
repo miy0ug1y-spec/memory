@@ -10,19 +10,32 @@
 
             <p class="mt-2">大切な人に伝えたいことや感謝の気持ち</p>
 
-              <%= f.text_area :feeling, autofocus:true, class:"form-control", rows: 5 %>
+            <%= f.text_area :feeling, autofocus:true, class:"form-control", rows: 5 %>
               
+            <div class="mt-4"> 
+            <%= f.label :image, "動画・画像", class:"form-label" %>
+
+              <div>          
+                <% if @ending.image.attached? %>
+                  <%= image_tag @ending.image, class:"ending-image" %>
+                  <div class="form-check mt-2">
+                    <%= check_box_tag :remove_image, "1", false, class:"form-check-input" %>
+                    <%= label_tag :remove_image, "添付を削除する", class:"form-check-label" %>
+                  </div>
+                <% end %>
+              </div>
+
               <div class="mt-4">
-                <%= f.label :image, "動画・画像", class:"form-label" %>
+                <p class="text-muted">添付を変更する場合は選択してください</p>
                 <%= f.file_field :image, class:"form-control" %>
               </div>
-            <p class="text-muted small">変更したい添付ファイルを選択してください</p>
+            </div>
 
             <p class="mt-4">エピソード<br>ー忘れられない記憶や懐かしい思い出ー</p>
              
             <%= f.text_area :episode, class:"form-control", rows:5 %>
 
-             <p class="mt-4">MyEndingに載せたい投稿があれば選択してください</p>
+              <p class="mt-4">MyEndingに載せたい投稿があれば選択してください</p>
             
             <%= f.collection_check_boxes :post_ids, @posts, :id, :title do |b| %>
 

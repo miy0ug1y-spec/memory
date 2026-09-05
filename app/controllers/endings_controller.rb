@@ -42,6 +42,11 @@ class EndingsController < ApplicationController
       redirect_to new_ending_path
     return
     end
+
+    if params[:remove_image] == "1"
+      @ending.image.purge
+    end
+    
     if @ending.update(ending_params)
       redirect_to ending_path(@ending), notice: "更新しました"
     else

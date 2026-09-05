@@ -6,10 +6,8 @@ class UsersController < ApplicationController
   end
   
   def mypage
-    @user = User.find(Current.user.id)
-    if @user != Current.user
-      redirect_to root_path
-    end
+    @user = Current.user
+    
     @user_image = @user.image 
     @posts = @user.posts.published.with_attached_image.order(created_at: :desc).limit(3)
 
