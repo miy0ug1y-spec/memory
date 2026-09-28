@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_29_030953) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_26_060544) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -45,6 +45,23 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_29_030953) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_admins_on_email_address", unique: true
+  end
+
+  create_table "ai_chats", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_ai_chats_on_user_id"
+  end
+
+  create_table "ai_messages", force: :cascade do |t|
+    t.integer "ai_chat_id", null: false
+    t.string "role"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ai_chat_id"], name: "index_ai_messages_on_ai_chat_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -163,6 +180,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_29_030953) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ai_chats", "users"
+  add_foreign_key "ai_messages", "ai_chats"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "ending_posts", "endings"

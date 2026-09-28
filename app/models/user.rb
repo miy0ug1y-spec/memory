@@ -69,6 +69,8 @@ class User < ApplicationRecord
             through: :approved_group_memberships,
             source: :group
 
+  has_many :ai_chats, dependent: :destroy
+
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :handle_name, presence: true
