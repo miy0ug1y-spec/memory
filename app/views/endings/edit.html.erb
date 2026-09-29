@@ -17,7 +17,14 @@
 
               <div>          
                 <% if @ending.image.attached? %>
-                  <%= image_tag @ending.image, class:"ending-image" %>
+
+                  <% if @ending.image.image? %>
+                    <%= image_tag @ending.image, class:"ending-image rounded" %>
+
+                  <% elsif @ending.image.video? %>
+                    <%= video_tag url_for(@ending.image), controls: true, class:"ending-video rounded" %>
+                  <% end %>
+
                   <div class="form-check mt-2">
                     <%= check_box_tag :remove_image, "1", false, class:"form-check-input" %>
                     <%= label_tag :remove_image, "添付を削除する", class:"form-check-label" %>
