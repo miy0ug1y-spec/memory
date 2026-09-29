@@ -24,12 +24,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id]) 
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :asc)
-
-    if @comment.save
-      redirect_to post_path(@post), notice:"コメントしました"
-    else
-      render "posts/show", status: :unprocessable_entity
-    end
   end
 
   def mypost
@@ -91,10 +85,12 @@ class PostsController < ApplicationController
     redirect_to mypost_path, notice:"削除しました。"
   end
 
-end
+
 
  private
 
   def post_params
     params.require(:post).permit(:title, :image, :body, :is_publish, :genre_id)
   end
+
+end
