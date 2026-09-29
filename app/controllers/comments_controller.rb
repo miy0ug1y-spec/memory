@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(@post), notice: "コメントを投稿しました"
     else
-      @comments = @post.comments.includes(:user).order(created_at: :desc)
+      @comments = @post.comments.includes(:user).order(created_at: :asc)
       render "posts/show", status: :unprocessable_entity
     end
   end
@@ -28,9 +28,11 @@ class CommentsController < ApplicationController
     @comment.destroy
     redirect_to post_path(@post), notice: "コメントを削除しました" 
   end
-end
+
 
 private
  def comment_params
   params.require(:comment).permit(:content)
  end
+
+end
