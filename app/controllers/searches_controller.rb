@@ -5,9 +5,9 @@ class SearchesController < ApplicationController
     @match_type = params[:match_type]
 
     @posts = Post.none
-    @user = User.none
+    @users = User.none
 
-    return unless @keyword.present?
+    if @keyword.present?
       case @search_type
       when "post"
           @posts = Post.published.where(
@@ -15,7 +15,6 @@ class SearchesController < ApplicationController
             keyword: "%#{@keyword}%"
           )
       
-
       when "user"
         if @match_type == "perfect"
         @users = User.where(
@@ -29,5 +28,6 @@ class SearchesController < ApplicationController
       end
     end
   end
+end
 
 
