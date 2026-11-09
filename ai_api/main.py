@@ -5,8 +5,12 @@ from openai import OpenAI
 app = FastAPI()
 client = OpenAI()
 
+class Message(BaseModel):
+  role: str
+  content: str
+
 class ChatRequest(BaseModel):
-  message: str
+  messages: list[Message]
 
 @app.post("/chat")
 def chat(request: ChatRequest):
@@ -32,7 +36,13 @@ def chat(request: ChatRequest):
     支援してください。
   """,
 
-    input=request.message
+    input= [
+      {
+        "role": message.role,
+        "content": message.content
+      }
+      for message in request.messages
+    ]
   )
   return {
     "reply": response.output_text

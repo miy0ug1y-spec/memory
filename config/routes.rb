@@ -39,8 +39,9 @@ Rails.application.routes.draw do
     resources :group_messages, only: [:create, :destroy]
   end
 
-  get "ai_chat" => "ai_chats#new"
-  post "ai_chat" => "ai_chats#create"
+  resources :ai_chats, only: [:new, :create, :show] do
+   resources :ai_messages, only: [:create]
+  end
   
 
   namespace :admin do

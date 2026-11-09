@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <h5>AIチャット</h5>
+  <% @messages.each do |message| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <p>
+          <strong>
+            <%= message.role == "user" ? "あなた" : "メモリス" %>
+          </strong>
+        </p>
+        <%= simple_format(message.content) %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= form_with url: ai_chat_ai_messages_path(@chat), method: :post, data: {turbo: false} do %>
+
+    <div class="mb-3">
+      <%= text_area_tag :message, nil, class: "form-control", rows: 3, placeholder: "メッセージを入力してください" %>
+    </div>
+
+    <%= submit_tag "送信", class:"btn btn-primary" %>
+  <% end %>
+</div>

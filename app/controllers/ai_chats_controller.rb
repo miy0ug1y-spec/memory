@@ -6,25 +6,14 @@ class AiChatsController < ApplicationController
   end
 
   def create
-    uri = URI("http://127.0.0.1:8001/chat")
-
-    http = Net::HTTP.new(uri.host, uri.port)
-
-    request = Net::HTTP::Post.new(uri.path)
-    request["Content-Type"] = "application/json"
-
-    request.body = {
-      message: params[:message]
-    }.to_json
-
-    response = http.request(request)
-    puts response.body
-
-    result = JSON.parse(response.body)
-
-    @reply = result["reply"]
-  
-    render :new
+    @chat = Current.user.ai_chats.create!
+    redirect_to ai_chat_path(@chat)
   end
+
+  def show
+    @chat = Current.user.ai_chats.find(params[:id])
+    @messages = @chat.ai_messages.order(created_at: :asc) 
+  end
+
 
 end
